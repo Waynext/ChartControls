@@ -17,6 +17,10 @@ Version 1.1.0
   (2) Add help document.
   
   (3) Fix bugs.
+  
+Version 1.1.1
+
+  (1) Add Project Url into nuegt package.
 	  
 4.INSTALL
 
