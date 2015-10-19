@@ -10,7 +10,7 @@ Email Address: Wayneheadache@hotmail.com
 
 3.CHANGELOG
 
-Version 1.0.0
+Version 1.1.0
 
   (1) Unify drawing interface.
   
