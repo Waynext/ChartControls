@@ -1,0 +1,2658 @@
+<doc>
+  <assembly>
+    <name>
+      ChartControls
+    </name>
+  </assembly>
+  <members>
+    <member name="T:ChartControls.ChartItem">
+      <summary>
+        Chart data item.It is the base class for other types of data items.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartItem.Value">
+      <summary>
+        The main value.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartItem.ValueChange">
+      <summary>
+        The main value change compares to the previous chart data item
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartItem.Date">
+      <summary>
+        The main time value.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartItem.ExtraData">
+      <summary>
+        Additional data.
+        <see cref="P:ChartControls.ChartItem.ExtraData">
+        </see>
+      </summary>
+    </member>
+    <member name="T:ChartControls.ChartItemComparer">
+      <summary>
+        Chart data items comparator that through time.
+      </summary>
+    </member>
+    <member name="T:ChartControls.ExtraData">
+      <summary>
+        Additional data dictionary can be used to store the dividend, the ex-dividend data and so on.
+      </summary>
+    </member>
+    <member name="M:ChartControls.ExtraData.Add(System.String,System.Object)">
+      <summary>
+        Add additional data items.
+      </summary>
+    </member>
+    <member name="M:ChartControls.ExtraData.Get(System.String)">
+      <summary>
+        Delete extra items.
+      </summary>
+    </member>
+    <member name="T:ChartControls.ChartItemWrap">
+      <summary>
+        Chart data wrapper, is used for interactive event.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartItemWrap.ChartItem">
+      <summary>
+        Chart data item.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartItemWrap.Point">
+      <summary>
+        Interaction location, such as the mouse position, touch position.
+      </summary>
+    </member>
+    <member name="T:ChartControls.Scale`1">
+      <summary>
+        Scale.
+      </summary>
+      <typeparam name="T">
+      </typeparam>
+    </member>
+    <member name="M:ChartControls.Scale`1.#ctor(System.Double,`0)">
+      <summary>
+        Constructor.
+      </summary>
+      <param name="pos">
+        Scale position.
+      </param>
+      <param name="value">
+        Scale value.
+      </param>
+    </member>
+    <member name="P:ChartControls.Scale`1.Pos">
+      <summary>
+        Scale position.
+      </summary>
+    </member>
+    <member name="P:ChartControls.Scale`1.Value">
+      <summary>
+        Scale value.
+      </summary>
+    </member>
+    <member name="T:ChartControls.AddLocation">
+      <summary>
+        Insert data location.
+      </summary>
+    </member>
+    <member name="F:ChartControls.AddLocation.Head">
+      <summary>
+        Head.
+      </summary>
+    </member>
+    <member name="F:ChartControls.AddLocation.Tail">
+      <summary>
+        Tail.
+      </summary>
+    </member>
+    <member name="T:ChartControls.CollectionId">
+      <summary>
+        Data set ID.
+      </summary>
+    </member>
+    <member name="M:ChartControls.CollectionId.#ctor(System.String,System.String,System.String)">
+      <summary>
+        Constructor.
+      </summary>
+      <param name="displayId">
+        Show ID, such as a stock code.
+      </param>
+      <param name="displayName">
+        Display name, such as the company referred to, or the index name.
+      </param>
+      <param name="marketId">
+        Market ID.
+      </param>
+    </member>
+    <member name="P:ChartControls.CollectionId.Id">
+      <summary>
+        ID.
+      </summary>
+    </member>
+    <member name="P:ChartControls.CollectionId.DisplayId">
+      <summary>
+        Show ID, such as a stock code.
+      </summary>
+    </member>
+    <member name="P:ChartControls.CollectionId.MarketId">
+      <summary>
+        Market ID.
+      </summary>
+    </member>
+    <member name="P:ChartControls.CollectionId.Name">
+      <summary>
+        Display name, such as the company referred to, or the index name.
+      </summary>
+    </member>
+    <member name="T:ChartControls.ChartItemCollection">
+      <summary>
+        Chart data collection on behalf of the graph is the curve.It is the base class for other data collection.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartItemCollection.ValueName">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.GetItemValue(System.Int32,System.String)">
+        </see>
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartItemCollection.ValueChangeName">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.GetItemValue(System.Int32,System.String)">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.#ctor(ChartControls.CollectionId,System.Collections.Generic.IEnumerable{ChartControls.ChartItem},ChartControls.Drawing.IPen,System.Windows.Media.Brush,System.Boolean,System.Boolean)">
+      <summary>
+        Constructor.
+      </summary>
+      <param name="id">
+        Data set ID.
+      </param>
+      <param name="items">
+        Data item list.
+      </param>
+      <param name="pen">
+        Pen, created by drawing factories.
+        <see cref="M:ChartControls.Drawing.DrawingObjectFactory.CreatePen(System.Windows.Media.Brush,System.Double)">
+        </see>
+      </param>
+      <param name="fill">
+        Filled brush
+      </param>
+      <param name="isItemConnected">
+        Whether points in Data collection are connected.The default value is true, that means connected.
+      </param>
+      <param name="isItemDynamic">
+        Whether dynamic loading data collection items.The default value is false, said they did not dynamically loaded.
+      </param>
+    </member>
+    <member name="F:ChartControls.ChartItemCollection.valueNA">
+      <summary>
+        Undefined value.If the data set is not defined in any data, make sure the occasion of the assignment.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartItemCollection.Id">
+      <summary>
+        Data collection Id.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartItemCollection.Pen">
+      <summary>
+         Pen.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartItemCollection.Fill">
+      <summary>
+         Fill color.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartItemCollection.Items">
+      <summary>
+        Data item list .
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartItemCollection.IsItemsConnected">
+      <summary>
+        Whether points in Data collection are connected.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartItemCollection.ItemXSpan">
+      <summary>
+        Distance between data items.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartItemCollection.MaxItemXDistance">
+      <summary>
+        The maximum width of the data item.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartItemCollection.MinItemXDistance">
+      <summary>
+        The minimum width of the data item.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartItemCollection.ItemXDistance">
+      <summary>
+         Width of the data item.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartItemCollection.ItemYDistance">
+      <summary>
+        From the Y-axis direction, distance of each unit.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartItemCollection.FirstVisibleItemIndex">
+      <summary>
+        Index of the first visible  data item.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartItemCollection.VisiableItemCount">
+      <summary>
+        The number of visible data items.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartItemCollection.MaxVisiableItemIndexDiff">
+      <summary>
+        The value that subtracts the first visible item index from the maximum value index.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartItemCollection.MinVisiableItemIndexDiff">
+      <summary>
+        The value that subtracts the first visible item index from the minimum value index.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartItemCollection.ChartRegion">
+      <summary>
+        Visible area.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartItemCollection.StartValue">
+      <summary>
+        Start value.For example, it can be used for time chart, set closing price of the previous trading day.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartItemCollection.IsSymmetric">
+      <summary>
+        Data collection display is symmetrical up and down.The default value is false, meaning asymmetry.TrueTrue indicates symmetry, for time chart.
+      </summary>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.GetDate(System.Int32)">
+      <summary>
+        Get time of the indexed data item.
+      </summary>
+      <param name="index">
+        Data collection index.
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.GetItemValue(System.Int32,System.String)">
+      <summary>
+        Take a value of data item.
+      </summary>
+      <param name="index">
+        Index.
+      </param>
+      <param name="valueName">
+        Value name.
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.GetItemPositionY(System.Int32,System.String)">
+      <summary>
+        Take a data item Y coordinate.
+      </summary>
+      <param name="index">
+        Index.
+      </param>
+      <param name="valueName">
+        Value Name.
+        <see cref="F:ChartControls.ChartItemCollection.ValueName">
+        </see>
+        <see cref="F:ChartControls.ChartItemCollection.ValueChangeName">
+        </see>
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.GetItemPositionX(System.Int32,System.String)">
+      <summary>
+        Take a data item X coordinate.
+      </summary>
+      <param name="index">
+        Index.
+      </param>
+      <param name="valueName">
+        Value name.
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="F:ChartControls.ChartItemCollection.iStartPosition">
+      <summary>
+        Index of the first visible item.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartItemCollection.originalPointLength">
+      <summary>
+        The initial number of visible items.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartItemCollection.points">
+      <summary>
+        Coordinate array of visible item collection.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartItemCollection.iCurrentPosition">
+      <summary>
+        Index of the current item.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartItemCollection.iMinPosition">
+      <summary>
+        Index of minimum item in visible items.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartItemCollection.iMaxPosition">
+      <summary>
+		Index of maximum item in visible items.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartItemCollection.collectRect">
+      <summary>
+        Visible area.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartItemCollection.masterCollection">
+      <summary>
+        The master collection.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartItemCollection.coordinateType">
+      <summary>
+        Coordinate type
+        <see cref="T:ChartControls.CoordinateType">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.CalculatePosition(System.Windows.Rect)">
+      <summary>
+        Calculating visible set and their location.It is called before redrawn.If you need to re-define the calculation method, you can override this function. But usually only need to override child methods which are called by this method, if you still can not meet, then consider overloading.
+      </summary>
+      <param name="rect">
+        Visible area
+      </param>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.CalculteCollectionPointsX">
+      <summary>
+        Calculating X coordinate of visible collection of items.
+        <see cref="F:ChartControls.ChartItemCollection.points">
+        </see>
+        X coordinate of the array.
+        <see cref="M:ChartControls.ChartItemCollection.CalculatePosition(System.Windows.Rect)">
+        </see>
+        call this method.If a data item has more X coordinate to be calculated, you can override this function.
+      </summary>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.FindMaxAndMinIndex">
+      <summary>
+        Looking for index of the maximum and minimum item from visible items.
+        <see cref="F:ChartControls.ChartItemCollection.iMaxPosition">
+        </see>
+        and
+        <see cref="F:ChartControls.ChartItemCollection.iMinPosition">
+        </see>
+        .
+        <see cref="M:ChartControls.ChartItemCollection.CalculatePosition(System.Windows.Rect)">
+        </see>
+        call this method.If the data item has more comparative data for maximum and minimum, you can override this function.
+      </summary>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.CalculateYDistance">
+      <summary>
+        Per unit distance calculated on the Y-axis direction.
+        <see cref="P:ChartControls.ChartItemCollection.ItemYDistance">
+        </see>
+        .
+        <see cref="M:ChartControls.ChartItemCollection.CalculatePosition(System.Windows.Rect)">
+        </see>
+        call this function. If there is a need, you can override this function.
+      </summary>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.CalculateCollectionPoints">
+      <summary>
+        Calculation Y coordinate of visible collection of items.
+        <see cref="F:ChartControls.ChartItemCollection.points">
+        </see>
+        Y coordinate of the array.
+        <see cref="M:ChartControls.ChartItemCollection.CalculatePosition(System.Windows.Rect)">
+        </see>
+        call this function. If there is a need to calculate the Y coordinate more, you can override this function.
+      </summary>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.GetMaxValue">
+      <summary>
+        Take max value. If there is a need, you can override this function.
+      </summary>
+      <returns>
+        Max.
+      </returns>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.GetMinValue">
+      <summary>
+        Take minimum value. If there is a need, you can override this function.
+      </summary>
+      <returns>
+        Min.
+      </returns>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.CopyFromMaster">
+      <summary>
+        Copy the master set of rendering parameters, save to their own calculations.
+      </summary>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.DrawDenseChart(ChartControls.Drawing.IDrawingContext,System.Windows.Point[],ChartControls.Drawing.IPen)">
+      <summary>
+        When items spacing of less than 1, calling draw.
+      </summary>
+      <param name="dc">
+        Drawing context.
+        <see cref="T:ChartControls.Drawing.IDrawingContext">
+        </see>
+      </param>
+      <param name="pointArray">
+         Coordinate array of visible items.
+      </param>
+      <param name="pen">
+        Pen.
+        <see cref="T:ChartControls.Drawing.IPen">
+        </see>
+      </param>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.DrawLooseChart(ChartControls.Drawing.IDrawingContext,System.Windows.Point[],ChartControls.Drawing.IPen)">
+      <summary>
+        Items spacing greater than or equal to 1, the draw call.
+      </summary>
+      <param name="dc">
+        Drawing context.
+        <see cref="T:ChartControls.Drawing.IDrawingContext">
+        </see>
+      </param>
+      <param name="pointArray">
+        coordinate array of visible  items.
+      </param>
+      <param name="pen">
+        Pen.
+        <see cref="T:ChartControls.Drawing.IPen">
+        </see>
+      </param>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.Draw(ChartControls.Drawing.IDrawingContext)">
+      <summary>
+        Draw chart data set. To draw chart more than curve graphic style, can be overloaded.
+      </summary>
+      <param name="dc">
+        Drawing context
+      </param>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.LocateCurrentChartItem(System.Windows.Point)">
+      <summary>
+        Based on the coordinates to find the current data item.
+      </summary>
+      <param name="pt">
+        Coordinates.
+      </param>
+      <returns>
+        Data item wrapper.
+      </returns>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.CreateChartItemWrap(System.Int32)">
+      <summary>
+        Create a data item wrapper.
+      </summary>
+      <param name="iPoint">
+        Item index.
+      </param>
+      <returns>
+        Items wrapper
+      </returns>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.LocateNearItem(System.Int32)">
+      <summary>
+        To change the current data item.
+      </summary>
+      <param name="steps">
+        Units to move, left or right.
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="P:ChartControls.ChartItemCollection.CurrentItem">
+      <summary>
+        Take the current data item wrapper.
+      </summary>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.AdjustPoint(System.Windows.Point,System.Boolean)">
+      <summary>
+        Trimming coordinates.
+      </summary>
+      <param name="pt">
+        Coordinates.
+      </param>
+      <param name="isMinY">
+        Check whether it is the lowest point.
+      </param>
+      <returns>
+        Coordinates adjusted.
+      </returns>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.Move(System.Int32,ChartControls.QueryData@)">
+      <summary>
+        Adjusted visible item set.
+      </summary>
+      <param name="steps">
+        Positive numbers to the right, adjustments are negative to the left.
+      </param>
+      <param name="queryData">
+        If adjusted to the end of the existing data collection, request additional data.Whether data collection is dynamic requests, see the constructor parameters  isItemDynamic.
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.Zoom(System.Double,ChartControls.QueryData@,System.Boolean)">
+      <summary>
+        Enlarge or reduce the visible data collection.
+      </summary>
+      <param name="times">
+        Enlarge or reduce times.
+      </param>
+      <param name="qData">
+        If adjusted to the end of the existing data collection, request additional data. Whether data collection is dynamic requests, see the constructor parameters isItemDynamic.
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.RearrayPointCollection(System.Int32)">
+      <summary>
+        Reallocate the visible data coordinate arrays.
+		To allocate more data, you can override this function.
+      </summary>
+      <param name="length">
+      </param>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.Resize(System.Windows.Size)">
+      <summary>
+        Adjust the display area.
+      </summary>
+      <param name="newSize">
+        Size of the new area.
+      </param>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.ShowRegion(System.Windows.Point,System.Windows.Point)">
+      <summary>
+        Display list of data items within a certain region.
+      </summary>
+      <param name="startPt">
+        Starting point.
+      </param>
+      <param name="endPt">
+        Termination point.
+      </param>
+      <returns>
+        Successful show.
+      </returns>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.GetChartItems(System.Windows.Point,System.Windows.Point)">
+      <summary>
+        Take the list of visible item, the list of data items within a certain region.
+      </summary>
+      <param name="startPt">
+        Starting point.
+      </param>
+      <param name="endPt">
+        Termination point.
+      </param>
+      <returns>
+        Data item list.
+      </returns>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.IsPointValid(System.Windows.Point)">
+      <summary>
+        Coordinate point is available.Equals to
+        <see cref="F:ChartControls.ChartItemCollection.valueNA">
+        </see>
+        means unavailable.
+      </summary>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.IsItemValid(ChartControls.ChartItem)">
+      <summary>
+        Interpretation of the data item is available. Empty equals unavailable.
+      </summary>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.IsValueValid(System.Double)">
+      <summary>
+        Value interpretation is available.Equals to
+        <see cref="F:ChartControls.ChartItemCollection.valueNA">
+        </see>
+        means unavailable.
+      </summary>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.AssistTo(ChartControls.ChartItemCollection,System.Boolean)">
+      <summary>
+        Set data collection to assist.
+      </summary>
+      <param name="source">
+        Need assistance data collection.
+      </param>
+      <param name="isIndependent">
+        Whether coordinate calculation of this collection is independence. The default value is false, said they did not calculated independently.
+      </param>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.GetValueFromPosition(System.Double)">
+      <summary>
+        Convert y coordinate to data value.
+      </summary>
+      <param name="y">
+        y coordinate.
+      </param>
+      <returns>
+        Data value.
+      </returns>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.GetStartValue">
+      <summary>
+        Take value of the first visible item.
+      </summary>
+      <returns>
+        value of the first visible item.
+        <see cref="P:ChartControls.ChartItem.Value">
+        </see>
+      </returns>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.GetYScaleDiffValue">
+      <summary>
+        Take a percentage of the value of the coordinate units.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartItemCollection.YColumnCount">
+      <summary>
+         Y-axis scale number.
+      </summary>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.GetYAxisScales(ChartControls.CoordinateType)">
+      <summary>
+        Computing Y-axis scale list.
+      </summary>
+      <param name="coordinateType">
+        Coordinate type
+        <see cref="T:ChartControls.CoordinateType">
+        </see>
+      </param>
+      <returns>
+        Scale list of Y axis.
+      </returns>
+    </member>
+    <member name="F:ChartControls.ChartItemCollection.XColumnCount">
+      <summary>
+        X-axis scale number, the default is 4.
+      </summary>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.GetXAxisScales">
+      <summary>
+        Obtain a list of X-axis scale.
+      </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.CalculateItemWidth(System.Double)">
+      <summary>
+        Upon request width, calculate the width of the data items reasonable.
+      </summary>
+      <param name="itemWidth">
+        Requested width.
+      </param>
+      <returns>
+        Reasonable data item width.
+      </returns>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.GetContainsCount">
+      <summary>
+        Counting the number of visible items.
+      </summary>
+      <returns>
+        The number of visible items
+      </returns>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.ConvertFrom(ChartControls.QueryItem)">
+      <summary>
+        Converted result of the request to data item.
+      </summary>
+      <param name="queryItem">
+        Request item.
+        <see cref="T:ChartControls.QueryItem">
+        </see>
+      </param>
+      <returns>
+        Results data item.
+        <see cref="T:ChartControls.ChartItem">
+        </see>
+      </returns>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.AddChartItems(System.Collections.Generic.IList{ChartControls.ChartItem},ChartControls.AddLocation,System.Boolean)">
+      <summary>
+        Insert data items. After the dynamic request is issued, Needs to use this function strip insert request results.
+        <see cref="T:ChartControls.QueryData">
+        </see>
+        <see cref="M:ChartControls.ChartItemCollection.Move(System.Int32,ChartControls.QueryData@)">
+        </see>
+        <see cref="M:ChartControls.ChartItemCollection.Zoom(System.Double,ChartControls.QueryData@,System.Boolean)">
+        </see>
+      </summary>
+      <param name="items">
+        Collection of data items.
+      </param>
+      <param name="location">
+        Inserted position.
+      </param>
+      <param name="isEnd">
+        Are there more data can be requested.false representation, to the left or the right direction have already been explored.
+      </param>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.UpdateConnectedItem(ChartControls.ChartItem,ChartControls.ChartItem)">
+      <summary>
+        Setting data item changes in items
+        <see cref="P:ChartControls.ChartItem.ValueChange">
+        </see>
+        If more changes need to be calculated can be overloaded.
+      </summary>
+      <param name="connectItem">
+        Data item.
+      </param>
+      <param name="preItem">
+        Data item before.
+      </param>
+    </member>
+    <member name="P:ChartControls.ChartItemCollection.IsEmpty">
+      <summary>
+        Data collection is empty.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartItemCollection.Count">
+      <summary>
+        Data set number of data items.
+      </summary>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.TransferCoordinate(ChartControls.CoordinateType)">
+      <summary>
+        According coordinate type, converting of data items in the collection.
+      </summary>
+      <param name="coordinateTypeTo">
+        Coordinate type.
+        <see cref="T:ChartControls.CoordinateType">
+        </see>
+      </param>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.ConvertChartItemLog10(ChartControls.ChartItem)">
+      <summary>
+        Value conversion, Log10 (X).
+      </summary>
+      <param name="item">
+        Data Item.
+        <see cref="T:ChartControls.ChartItem">
+        </see>
+      </param>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.ConvertChartItemPow10(ChartControls.ChartItem)">
+      <summary>
+        Value conversion, Pow10 (X).
+      </summary>
+      <param name="item">
+        Data Item.
+        <see cref="T:ChartControls.ChartItem">
+        </see>
+      </param>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.AdjustItemValue(ChartControls.ChartItem,ChartControls.CoordinateType,ChartControls.CoordinateType)">
+      <summary>
+        Conversion value of data item based on the type of coordinate.
+      </summary>
+      <param name="item">
+        Data Item.
+        <see cref="T:ChartControls.ChartItem">
+        </see>
+      </param>
+      <param name="coordinateTypeFrom">
+        Source coordinate type.
+        <see cref="T:ChartControls.CoordinateType">
+        </see>
+      </param>
+      <param name="coordinateTypeTo">
+        Target coordinates type.
+        <see cref="T:ChartControls.CoordinateType">
+        </see>
+      </param>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.CopyAndAdjustItemValue(ChartControls.ChartItem,ChartControls.CoordinateType)">
+      <summary>
+        Copy the data item and its value based on the coordinate conversion type.
+      </summary>
+      <param name="item">
+        Data Item.
+        <see cref="T:ChartControls.ChartItem">
+        </see>
+      </param>
+      <param name="coordinateType">
+        Coordinate type.
+        <see cref="T:ChartControls.CoordinateType">
+        </see>
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.ConvertFromPoint(System.Windows.Point)">
+      <summary>
+        Covert coordinate point into a combination of time and values.
+      </summary>
+      <param name="pt">
+        Coordinate.
+      </param>
+      <returns>
+        The combined value of time.
+      </returns>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.ConvertFromValuePoint(ChartControls.ValuePoint)">
+      <summary>
+        Convert a combination of time and values into coordinate.
+      </summary>
+      <param name="vp">
+        Time and value.
+      </param>
+      <returns>
+        Coordinate
+      </returns>
+    </member>
+    <member name="M:ChartControls.ChartItemCollection.CopyPen(ChartControls.Drawing.IPen,System.Windows.Media.PenLineCap)">
+      <summary>
+        Copy pen.
+      </summary>
+      <param name="pen">
+        Source.
+      </param>
+      <param name="lineCap">
+        Thread shape.
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="T:ChartControls.ChartControl">
+      <summary>
+        Stock chart control.Display candle sticks chart, time chart, volume chart and technical indicators.
+      </summary>
+      <remarks>
+      </remarks>
+      <example>
+             1.Create candle sticks view
+             Xaml
+             &lt;local:ChartControl x:Name="price"/&gt;
+             <code>
+             Stock stock = ...;
+             var closeList = new List&lt;ChartItem&gt;();
+             CandleData cdPre = stock.Items.First();
+             foreach (var cd in stock.Items)
+             {
+                 closeList.Add(new StockItem()
+                 {
+                     Close = cd.close,
+                     Date = cd.DateTime,
+                     High = cd.high,
+                     Low = cd.low,
+                     Open = cd.open,
+                     CloseChange = (cd.close - cdPre.close) / cdPre.close
+                 });
+                 cdPre = cd;
+             }
+            
+             CollectionId id = new CollectionId("000001", "SH");
+             StockItemCollection coll = new StockItemCollection(id, closeList, raisePen, fallPen, null, false);
+             price.SetMainCollection(coll);
+             price.ForceDraw();
+             </code>
+             
+             2.Create candle sticks and volumn view
+             Xaml
+             &lt;local:ChartControl x:Name="price"/&gt;
+             &lt;local:ChartControl x:Name="volumn" /&gt;
+             <code>
+             Stock stock = ...;
+            
+            var closeList = new List&lt;ChartItem&gt;();
+            var volList = new List&lt;ChartItem&gt;();
+            CandleData cdPre = stock.Items.First();
+            foreach (var cd in stock.Items)
+            {
+                closeList.Add(new StockItem()
+                {
+                    Close = cd.close,
+                    Date = cd.DateTime,
+                    High = cd.high,
+                    Low = cd.low,
+                    Open = cd.open,
+                    CloseChange = (cd.close - cdPre.close) / cdPre.close
+                });
+                cdPre = cd;
+            
+                volList.Add(new VolumnItem()
+                {
+                    Date = cd.DateTime,
+                    IsRaise = cd.open &lt;= cd.close,
+                    Volumn = cd.amount,
+                    Turnover = cd.money
+                });
+            }
+            
+            string stockId = "000001";
+            string marketId = "SH";
+            CollectionId id = new CollectionId(stockId, marketId);
+            StockItemCollection coll = new StockItemCollection(id, closeList, raisePen, fallPen, null, false);
+            price.SetMainCollection(coll);
+            
+            id = new CollectionId(stockId, marketId);
+            VolumnItemCollection volColl = new VolumnItemCollection(id, volList, raisePen, fallPen, false);
+            volumn.SetMainCollection(volColl);
+            price.AddConnection(volumn);
+            price.ForceDraw();
+        </code>
+      </example>
+    </member>
+    <member name="M:ChartControls.ChartControl.#ctor">
+      <summary>
+        Constructor to initialize the control.
+      </summary>
+    </member>
+    <member name="M:ChartControls.ChartControl.SetMainCollection(ChartControls.ChartItemCollection,System.Boolean)">
+      <summary>
+        Set primary data collection, such as candle sticks data collection.
+      </summary>
+      <param name="collection">
+        Chart data set.
+      </param>
+      <param name="needDraw">
+        Whether to draw after setting the master data.The default value is false, said they did not draw, call ForceDraw themselves.
+      </param>
+    </member>
+    <member name="M:ChartControls.ChartControl.AddAssistCollection(ChartControls.ChartItemCollection,System.Boolean,System.Boolean)">
+      <summary>
+        Auxiliary data sets, such as the average of candle sticks diagram of the data collection, or other indicators of data collection.
+      </summary>
+      <param name="collection">
+        Chart data set.
+      </param>
+      <param name="isIndependent">
+        Auxiliary data sets show whether the position is calculated independently.The default value is false, meaning the secondary data set display position is not calculated independently, but through calculations the main collection.
+      </param>
+      <param name="needDraw">
+      </param>
+    </member>
+    <member name="M:ChartControls.ChartControl.AddExtraDataGraphic(ChartControls.IExtraDataGraphics)">
+      <summary>
+        Adding additional data drawer, such as ex-data, dividend data, messages.
+      </summary>
+      <param name="graphic">
+        <see cref="T:ChartControls.IExtraDataGraphics">
+        </see>
+      </param>
+    </member>
+    <member name="M:ChartControls.ChartControl.RemoveExtraDataGraphic(ChartControls.IExtraDataGraphics)">
+      <summary>
+        Remove extra data drawer.
+      </summary>
+      <param name="graphic">
+        <see cref="T:ChartControls.IExtraDataGraphics">
+        </see>
+      </param>
+    </member>
+    <member name="M:ChartControls.ChartControl.ForceDraw">
+      <summary>
+        Forced redraw control.
+      </summary>
+    </member>
+    <member name="M:ChartControls.ChartControl.StartDrawCustomGraphics(ChartControls.ICustomGraphics)">
+      <summary>
+        Start drawing custom graphics, such as lines, parallel lines, and so on.The user can select graphics position by mouse.
+      </summary>
+      <param name="g">
+        <see cref="T:ChartControls.ICustomGraphics">
+        </see>
+      </param>
+    </member>
+    <member name="M:ChartControls.ChartControl.StopDrawCustomGraphics">
+      <summary>
+        End draw custom graphics.
+      </summary>
+    </member>
+    <member name="M:ChartControls.ChartControl.StartRemoveCustomGraphics">
+      <summary>
+        Start deleting custom graphics.The user can choose to delete the graphic using the mouse.
+      </summary>
+    </member>
+    <member name="M:ChartControls.ChartControl.StopRemoveCustomGraphics">
+      <summary>
+         End delete custom graphics.
+      </summary>
+    </member>
+    <member name="M:ChartControls.ChartControl.AddConnection(ChartControls.ChartControl)">
+      <summary>
+        Associated with another chart control. After associated, mouse movement and zooming up will be linked.
+      </summary>
+      <param name="otherChart">
+      </param>
+    </member>
+    <member name="P:ChartControls.ChartControl.MainCollection">
+      <summary>
+        Main data collection
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.AssistCollections">
+      <summary>
+        Secondary data collection list
+      </summary>
+    </member>
+    <member name="M:ChartControls.ChartControl.SetCursorPosition(System.Windows.Point)">
+      <summary>
+        Setting the cursor position
+      </summary>
+      <param name="position">
+      </param>
+    </member>
+    <member name="M:ChartControls.ChartControl.MoveCursorPosition(System.Int32)">
+      <summary>
+        Move the cursor
+      </summary>
+      <param name="steps">
+        A positive value indicates the unit moved to the right, and negative moves to the left unit.
+      </param>
+    </member>
+    <member name="M:ChartControls.ChartControl.MoveChartPosition(System.Int32)">
+      <summary>
+        Move Chart
+      </summary>
+      <param name="steps">
+        A positive value indicates the unit moved to the right, and negative moves to the left unit.
+      </param>
+    </member>
+    <member name="M:ChartControls.ChartControl.Zoom(System.Double,System.Boolean)">
+      <summary>
+        Enlarge or shrink the chart.
+      </summary>
+      <param name="times">
+        Multiple of the current chart, greater than 1 indicates amplification. Greater than 0 and less than 1 indicates reduced.
+      </param>
+	  <param name="autoAdjust">If the multiple is too small, zoom failure, whether to automatically adjust. The default value is True, automatic adjustment factor.</param>
+      <returns>Successful or not</returns>
+    </member>
+    <member name="M:ChartControls.ChartControl.DisplayRegion(System.Windows.Point,System.Windows.Point)">
+      <summary>
+        Display data set between two points is equal to the enlarged display.
+      </summary>
+      <param name="start">
+        Starting point
+      </param>
+      <param name="end">
+        End point
+      </param>
+    </member>
+    <member name="M:ChartControls.ChartControl.FindCollection(ChartControls.CollectionId)">
+      <summary>
+        Find data collection.
+	  </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.IsIteractive">
+      <summary>
+        Whether the corresponding interaction events, such as a mouse, keyboard, and touch input.
+      </summary>
+    </member>
+    <member name="M:ChartControls.ChartControl.QueryFinished(ChartControls.QueryDataResult{ChartControls.ChartItem})">
+      <summary>
+        In response to a request result.
+      </summary>
+      <param name="result">
+        Request Result
+      </param>
+    </member>
+    <member name="F:ChartControls.ChartControl.BackgroundProperty">
+      <summary>
+        Background color.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.BorderProperty">
+      <summary>
+        Border color.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.BorderThicknessProperty">
+      <summary>
+        Border width.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.CursorLinesProperty">
+      <summary>
+        Cursor line color.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.CursorLinesThicknessProperty">
+      <summary>
+        Cursor line width.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.CursorLinesDashesProperty">
+      <summary>
+        Cursor Dash line style.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.YScaleDockProperty">
+      <summary>
+        y-axis scale position.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.YScaleWidthProperty">
+      <summary>
+        y-axis scale width.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.XScaleDockProperty">
+      <summary>
+        x-axis scale position.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.XScaleHeightProperty">
+      <summary>
+        x-axis scale height.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.SelectionBorderColorProperty">
+      <summary>
+        Color selection box.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.SelectionBorderThicknessProperty">
+      <summary>
+         Select the box width.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.SelectionBorderDashesProperty">
+      <summary>
+        Dash style selection box.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.TimeScaleFormatProperty">
+      <summary>
+        Time display format.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.NumberScaleFormatProperty">
+      <summary>
+        Data display format.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.ScaleLineColorProperty">
+      <summary>
+        Scale line color.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.ScaleLineThicknessProperty">
+      <summary>
+        Scale line width.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.ScaleLineDashesProperty">
+      <summary>
+        Scale line Dash style.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.FontFamilyProperty">
+      <summary>
+        Font family.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.FontSizeProperty">
+      <summary>
+        Font size.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.FontStretchProperty">
+      <summary>
+        Font tension and compression.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.FontStyleProperty">
+      <summary>
+        Font style.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.FontWeightProperty">
+      <summary>
+        Font weight.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.ForegroundProperty">
+      <summary>
+        Foreground color.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.PointerStartActionProperty">
+      <summary>
+        Contact start event.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.CoordinateTypeProperty">
+      <summary>
+        Coordinate types.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.MeasureGraphicsProperty">
+      <summary>
+        A ruler graphics.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.Background">
+      <summary>
+        Background color.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.Border">
+      <summary>
+        Border color.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.BorderThickness">
+      <summary>
+        Border width.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.CursorLines">
+      <summary>
+        Cursor line color.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.CursorLinesThickness">
+      <summary>
+        Cursor line width.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.CursorLinesDashes">
+      <summary>
+        Cursor Dash line style.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.YScaleDock">
+      <summary>
+        y-axis scale position.
+        <see cref="T:ChartControls.YScaleDock">
+        </see>
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.YScaleWidth">
+      <summary>
+        y-axis scale width.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.XScaleDock">
+      <summary>
+        x-axis scale position.
+        <see cref="T:ChartControls.XScaleDock">
+        </see>
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.XScaleHeight">
+      <summary>
+        x-axis scale height.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.SelectionBorderColor">
+      <summary>
+         Color selection box.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.SelectionBorderThickness">
+      <summary>
+         Select the box width.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.SelectionBorderDashes">
+      <summary>
+        Dash style selection box.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.TimeScaleFormat">
+      <summary>
+        Time display format.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.NumberScaleFormat">
+      <summary>
+        Data display format.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.ScaleLineColor">
+      <summary>
+        Scale line color.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.ScaleLineThickness">
+      <summary>
+        Scale line width.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.ScaleLineDashes">
+      <summary>
+        Scale line Dash style.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.FontFamily">
+      <summary>
+        Font family.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.FontSize">
+      <summary>
+        Font size.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.FontStretch">
+      <summary>
+        Font tension and compression.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.FontStyle">
+      <summary>
+        Font style.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.FontWeight">
+      <summary>
+        Font weight.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.Foreground">
+      <summary>
+        Foreground color.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.PointerStartAction">
+      <summary>
+        Contact start event.<see cref="T:ChartControls.PointerAction"/>
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.CoordinateType">
+      <summary>
+        Coordinate type.
+        <see cref="T:ChartControls.CoordinateType">
+        </see>
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.MeasureGraphics">
+      <summary>
+        A ruler graphics.
+        <see cref="T:ChartControls.MeasureGraphics">
+        </see>
+      </summary>
+    </member>
+    <member name="P:ChartControls.ChartControl.ExtraDataGraphics">
+      <summary>
+        Additional Data List.
+        <see cref="T:ChartControls.IExtraDataGraphics">
+        </see>
+      </summary>
+    </member>
+    <member name="T:ChartControls.ChartControl.CursorMovedEventHandler">
+      <summary>
+        Move the cursor event handler.
+        <see cref="T:ChartControls.CursorMovedRoutedEventArgs">
+        </see>
+      </summary>
+    </member>
+    <member name="T:ChartControls.ChartControl.DataQueriedEventHandler">
+      <summary>
+        Dynamic data request event.
+        <see cref="T:ChartControls.QueryDataEventArgs">
+        </see>
+      </summary>
+    </member>
+    <member name="T:ChartControls.ChartControl.SelectItemsEventHandler">
+      <summary>
+        Select event handler.
+        <see cref="T:ChartControls.SelectItemsEventArgs">
+        </see>
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.CursorMovedEvent">
+      <summary>
+        Cursor movement event.
+        <see cref="T:ChartControls.CursorMovedRoutedEventArgs">
+        </see>
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.DataQueriedEvent">
+      <summary>
+        Dynamic data request event handler.
+        <see cref="T:ChartControls.QueryDataEventArgs">
+        </see>
+      </summary>
+    </member>
+    <member name="F:ChartControls.ChartControl.SelectItemsEvent">
+      <summary>
+        Select the event.
+        <see cref="T:ChartControls.SelectItemsEventArgs">
+        </see>
+      </summary>
+    </member>
+    <member name="E:ChartControls.ChartControl.CursorMoved">
+      <summary>
+        Cursor movement event.
+        <see cref="T:ChartControls.CursorMovedRoutedEventArgs">
+        </see>
+      </summary>
+    </member>
+    <member name="E:ChartControls.ChartControl.DataQueried">
+      <summary>
+        Dynamic data request events.
+        <see cref="T:ChartControls.QueryDataEventArgs">
+        </see>
+      </summary>
+    </member>
+    <member name="E:ChartControls.ChartControl.SelectItems">
+      <summary>
+        Select the event.
+        <see cref="T:ChartControls.SelectItemsEventArgs">
+        </see>
+      </summary>
+    </member>
+    <member name="T:ChartControls.CurrentChartItem">
+      <summary>
+        Chart data item under the current position.Typically used to return the chart data entry that is located under the mouse.
+      </summary>
+    </member>
+    <member name="M:ChartControls.CurrentChartItem.#ctor(ChartControls.CollectionId,ChartControls.ChartItem)">
+      <summary>
+        Constructor             
+      </summary>
+      <param name="id">
+        ID chart data collection
+      </param>
+      <param name="item">
+        Chart data item
+      </param>
+    </member>
+    <member name="P:ChartControls.CurrentChartItem.Id">
+      <summary>
+        ID chart data collection
+      </summary>
+    </member>
+    <member name="P:ChartControls.CurrentChartItem.Item">
+      <summary>
+        Chart data item
+      </summary>
+    </member>
+    <member name="T:ChartControls.CursorMovedRoutedEventArgs">
+      <summary>
+        Move the cursor event parameters.
+      </summary>
+    </member>
+    <member name="M:ChartControls.CursorMovedRoutedEventArgs.#ctor(System.Collections.Generic.IEnumerable{ChartControls.CurrentChartItem})">
+      <summary>
+        Constructor.
+      </summary>
+      <param name="currentItems">
+        Data item list .
+        <see cref="T:ChartControls.CurrentChartItem">
+        </see>
+      </param>
+    </member>
+    <member name="P:ChartControls.CursorMovedRoutedEventArgs.CurrentItems">
+      <summary>
+        Related item list.
+        <see cref="T:ChartControls.CurrentChartItem">
+        </see>
+      </summary>
+    </member>
+    <member name="T:ChartControls.QueryDataEventArgs">
+      <summary>
+        Dynamic Data request event parameters.
+      </summary>
+    </member>
+    <member name="P:ChartControls.QueryDataEventArgs.QueryData">
+      <summary>
+        Request data.
+        <see cref="T:ChartControls.QueryData">
+        </see>
+      </summary>
+    </member>
+    <member name="T:ChartControls.SelectItemsEventArgs">
+      <summary>
+        Select event parameters.
+      </summary>
+    </member>
+    <member name="P:ChartControls.SelectItemsEventArgs.Items">
+      <summary>
+        A list of selected data items.
+        <see cref="T:ChartControls.ChartItem">
+        </see>
+      </summary>
+    </member>
+    <member name="T:ChartControls.YScaleDock">
+      <summary>
+        y-axis scale position.
+      </summary>
+    </member>
+    <member name="F:ChartControls.YScaleDock.Left">
+      <summary>
+        Left of the chart.
+      </summary>
+    </member>
+    <member name="F:ChartControls.YScaleDock.Right">
+      <summary>
+        Right of the chart.
+      </summary>
+    </member>
+    <member name="F:ChartControls.YScaleDock.InnerLeft">
+      <summary>
+        Inside left of the Chart.
+      </summary>
+    </member>
+    <member name="F:ChartControls.YScaleDock.InnerRight">
+      <summary>
+        Inside right of the Chart .
+      </summary>
+    </member>
+    <member name="F:ChartControls.YScaleDock.None">
+      <summary>
+        Do not show.
+      </summary>
+    </member>
+    <member name="T:ChartControls.XScaleDock">
+      <summary>
+        x-axis scale position.
+      </summary>
+    </member>
+    <member name="F:ChartControls.XScaleDock.None">
+      <summary>
+        Do not show.
+      </summary>
+    </member>
+    <member name="F:ChartControls.XScaleDock.Bottom">
+      <summary>
+        Bottom.
+      </summary>
+    </member>
+    <member name="T:ChartControls.CoordinateType">
+      <summary>
+        Coordinate types.
+      </summary>
+    </member>
+    <member name="F:ChartControls.CoordinateType.Linear">
+      <summary>
+        Linear coordinate.
+      </summary>
+    </member>
+    <member name="F:ChartControls.CoordinateType.Log10">
+      <summary>
+        Logarithmic coordinate.
+      </summary>
+    </member>
+    <member name="F:ChartControls.CoordinateType.Percentage">
+      <summary>
+        Percentage coordinate.
+      </summary>
+    </member>
+    <member name="T:ChartControls.PointerAction">
+      <summary>
+        Contact operation type.
+      </summary>
+    </member>
+    <member name="F:ChartControls.PointerAction.None">
+      <summary>
+        None.
+      </summary>
+    </member>
+    <member name="F:ChartControls.PointerAction.ZoomIn">
+      <summary>
+        Zoom.
+      </summary>
+    </member>
+    <member name="F:ChartControls.PointerAction.Measure">
+      <summary>
+        Measurement.
+      </summary>
+    </member>
+    <member name="F:ChartControls.PointerAction.Select">
+      <summary>
+        Choose.
+      </summary>
+    </member>
+    <member name="T:ChartControls.ExtraDataNames">
+      <summary>
+        Additional Data Index names.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ExtraDataNames.XRName">
+      <summary>
+        Ex dividend data and name.
+      </summary>
+    </member>
+    <member name="F:ChartControls.ExtraDataNames.MessageName">
+      <summary>
+        Message name.
+      </summary>
+    </member>
+    <member name="T:ChartControls.Drawing.DrawingObjectFactory">
+      <summary>
+        Creating drawing objects, such as pens, text.
+		When creating ChartItemCollection need to use.
+      </summary>
+    </member>
+    <member name="M:ChartControls.Drawing.DrawingObjectFactory.CreatePen(System.Windows.Media.Brush,System.Double)">
+      <summary>
+        Create a pen.
+      </summary>
+      <param name="brush">
+      </param>
+      <param name="thickness">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:ChartControls.Drawing.DrawingObjectFactory.CreateTextFormat(System.String,System.Windows.FlowDirection,System.Windows.Media.FontFamily,System.Windows.FontStyle,System.Windows.FontWeight,System.Windows.FontStretch,System.Double,System.Windows.Media.Brush)">
+      <summary>
+        Create a text.
+      </summary>
+      <param name="textToFormat">
+      </param>
+      <param name="flowDirection">
+      </param>
+      <param name="fontFamily">
+      </param>
+      <param name="style">
+      </param>
+      <param name="weight">
+      </param>
+      <param name="stretch">
+      </param>
+      <param name="emSize">
+      </param>
+      <param name="foreground">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="T:ChartControls.Drawing.IPen">
+      <summary>
+        Pen interface similar to the WPF Pen.
+      </summary>
+    </member>
+    <member name="P:ChartControls.Drawing.IPen.LowObject">
+      <summary>
+        Get the underlying object, if dependent on WPF, returns Pen object
+      </summary>
+    </member>
+    <member name="M:ChartControls.Drawing.IPen.Clone">
+      <summary>
+        Clone
+      </summary>
+      <returns>
+        Pen
+      </returns>
+    </member>
+    <member name="T:ChartControls.Drawing.ITextFormat">
+      <summary>
+        Text interface similar to the WPF FormattedText. 
+      </summary>
+    </member>
+    <member name="P:ChartControls.Drawing.ITextFormat.LowObject">
+      <summary>
+        Get the underlying object, if the dependent on WPF, the object is returned FormattedText
+      </summary>
+    </member>
+    <member name="T:ChartControls.Drawing.IDrawingContext">
+      <summary>
+        Paint context interface, provide drawing functions.
+      </summary>
+    </member>
+    <member name="M:ChartControls.Drawing.IDrawingContext.DrawEllipse(System.Windows.Media.Brush,ChartControls.Drawing.IPen,System.Windows.Point,System.Double,System.Double)">
+      <summary>
+        Draw an oval.
+      </summary>
+    </member>
+    <member name="M:ChartControls.Drawing.IDrawingContext.DrawGeometry(System.Windows.Media.Brush,ChartControls.Drawing.IPen,System.Windows.Media.Geometry)">
+      <summary>
+        Draw a custom geometry.
+      </summary>
+    </member>
+    <member name="M:ChartControls.Drawing.IDrawingContext.DrawImage(System.Windows.Media.ImageSource,System.Windows.Rect)">
+      <summary>
+        Draw a art image.
+      </summary>
+    </member>
+    <member name="M:ChartControls.Drawing.IDrawingContext.DrawLine(ChartControls.Drawing.IPen,System.Windows.Point,System.Windows.Point)">
+      <summary>
+        Draw a straight line.
+      </summary>
+    </member>
+    <member name="M:ChartControls.Drawing.IDrawingContext.DrawRectangle(System.Windows.Media.Brush,ChartControls.Drawing.IPen,System.Windows.Rect)">
+      <summary>
+        Draw a rectangle.
+      </summary>
+    </member>
+    <member name="M:ChartControls.Drawing.IDrawingContext.DrawRoundedRectangle(System.Windows.Media.Brush,ChartControls.Drawing.IPen,System.Windows.Rect,System.Double,System.Double)">
+      <summary>
+        Draw a rounded rectangle.
+      </summary>
+    </member>
+    <member name="M:ChartControls.Drawing.IDrawingContext.DrawText(ChartControls.Drawing.ITextFormat,System.Windows.Point)">
+      <summary>
+        Draw text.
+      </summary>
+    </member>
+    <member name="M:ChartControls.Drawing.IDrawingContext.Pop">
+      <summary>
+        Pop last effect. 
+      </summary>
+    </member>
+    <member name="M:ChartControls.Drawing.IDrawingContext.PushClip(System.Windows.Media.Geometry)">
+      <summary>
+        Push the cut area
+      </summary>
+    </member>
+    <member name="M:ChartControls.Drawing.IDrawingContext.PushOpacity(System.Double)">
+      <summary>
+        Push effect transparency value
+      </summary>
+    </member>
+    <member name="M:ChartControls.Drawing.IDrawingContext.PushTransform(System.Windows.Media.Transform)">
+      <summary>
+        Push transition effects
+      </summary>
+    </member>
+    <member name="P:ChartControls.Drawing.IDrawingContext.LowContext">
+      <summary>
+        Obtain the underlying context, if the dependent WPF, return DrawingContext object. Otherwise Canvas object.
+      </summary>
+    </member>
+    <member name="P:ChartControls.Drawing.IDrawingContext.LastDrawnObject">
+      <summary>
+        Returns the last draw object.
+      </summary>
+    </member>
+    <member name="T:ChartControls.IExtraDataGraphics">
+      <summary>
+        Additional data graphics interface.
+        <see cref="M:ChartControls.ChartControl.AddExtraDataGraphic(ChartControls.IExtraDataGraphics)">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.IExtraDataGraphics.DrawExtraData(ChartControls.ChartControl,ChartControls.Drawing.IDrawingContext)">
+      <summary>
+        Drawing custom additional data.
+      </summary>
+      <param name="chartSource">
+        chart controls.
+      </param>
+      <param name="dc">
+        Drawing context.
+      </param>
+    </member>
+    <member name="T:ChartControls.IInteractive">
+      <summary>
+        Interactive interface.
+      </summary>
+    </member>
+    <member name="P:ChartControls.IInteractive.HasTooltip">
+      <summary>
+        Have tip.
+      </summary>
+    </member>
+    <member name="P:ChartControls.IInteractive.ToolTip">
+      <summary>
+        Tips content.
+      </summary>
+    </member>
+    <member name="P:ChartControls.IInteractive.ContextMenu">
+      <summary>
+        Menu.
+      </summary>
+    </member>
+    <member name="M:ChartControls.IInteractive.IsPointInRegion(System.Windows.Point)">
+      <summary>
+        Decision point is within the region.
+      </summary>
+    </member>
+    <member name="P:ChartControls.IInteractive.CanSelect">
+      <summary>
+        Can you choose.
+      </summary>
+    </member>
+    <member name="P:ChartControls.IInteractive.IsSelected">
+      <summary>
+        Choose.
+      </summary>
+    </member>
+    <member name="P:ChartControls.IInteractive.CanChange">
+      <summary>
+        Can I change.
+      </summary>
+    </member>
+    <member name="M:ChartControls.IInteractive.GetNodeIndex(System.Windows.Point)">
+      <summary>
+        Take the point where the index nodes.
+      </summary>
+    </member>
+    <member name="M:ChartControls.IInteractive.UpdateNodePosition(System.Int32,System.Windows.Point)">
+      <summary>
+        Update coordinate of node.
+      </summary>
+      <param name="nodeIndex">
+        Node index.
+      </param>
+      <param name="newPosition">
+        The new coordinates.
+      </param>
+    </member>
+    <member name="M:ChartControls.IInteractive.TranformPosition(System.Windows.Media.Transform)">
+      <summary>
+        Convert graphics.
+      </summary>
+      <param name="transform">
+      </param>
+    </member>
+    <member name="T:ChartControls.LineGraphics">
+      <summary>
+        Linear custom graphics.
+      </summary>
+    </member>
+    <member name="T:ChartControls.MeasureGraphics">
+      <summary>
+        Ruler
+      </summary>
+    </member>
+    <member name="T:ChartControls.MultipleChartItem">
+      <summary>
+        ulti-value data item.
+      </summary>
+    </member>
+    <member name="M:ChartControls.MultipleChartItem.#ctor">
+      <summary>
+        Constructor.
+      </summary>
+    </member>
+    <member name="P:ChartControls.MultipleChartItem.Values">
+      <summary>
+        List of values.
+      </summary>
+    </member>
+    <member name="P:ChartControls.MultipleChartItem.ValueChanges">
+      <summary>
+        Percentage change in the value list.
+      </summary>
+    </member>
+    <member name="T:ChartControls.MultipleChartItemWrap">
+      <summary>
+        Multi-value data item wrapper.
+      </summary>
+    </member>
+    <member name="P:ChartControls.MultipleChartItemWrap.Points">
+      <summary>
+        Coordinates of points.
+      </summary>
+    </member>
+    <member name="T:ChartControls.MultipleChartItemCollection">
+      <summary>
+        Multi-value data items.
+      </summary>
+    </member>
+    <member name="P:ChartControls.MultipleChartItemCollection.Pens">
+      <summary>
+        Pen array, the corresponding multi-value data for each item.
+      </summary>
+    </member>
+    <member name="M:ChartControls.MultipleChartItemCollection.#ctor(ChartControls.CollectionId,System.Collections.Generic.IEnumerable{ChartControls.MultipleChartItem},ChartControls.Drawing.IPen[],System.Boolean,System.Boolean)">
+      <summary>
+        Constructor.
+      </summary>
+      <param name="id">
+        ID.
+      </param>
+      <param name="items">
+        Multi-valued data items.
+        <see cref="T:ChartControls.MultipleChartItem">
+        </see>
+      </param>
+      <param name="pens">
+        Pens.
+        <see cref="T:ChartControls.Drawing.IPen">
+        </see>
+        <see cref="M:ChartControls.Drawing.DrawingObjectFactory.CreatePen(System.Windows.Media.Brush,System.Double)">
+        </see>
+      </param>
+      <param name="isItemConnected">
+        Whether points in Data collection are connected.The default value is true, that means connected.
+      </param>
+      <param name="isItemDynamic">
+        Whether dynamic loading data collection items.The default value is false, said they did not dynamically loaded.
+      </param>
+    </member>
+    <member name="M:ChartControls.MultipleChartItemCollection.CalculteCollectionPointsX">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.CalculteCollectionPointsX">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.MultipleChartItemCollection.FindMaxAndMinIndex">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.FindMaxAndMinIndex">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.MultipleChartItemCollection.CalculateYDistance">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.CalculateYDistance">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.MultipleChartItemCollection.CalculateCollectionPoints">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.CalculateCollectionPoints">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.MultipleChartItemCollection.GetStartValue">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.GetStartValue">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.MultipleChartItemCollection.GetMaxValue">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.GetMaxValue">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.MultipleChartItemCollection.GetMinValue">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.GetMinValue">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.MultipleChartItemCollection.CopyFromMaster">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.CopyFromMaster">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.MultipleChartItemCollection.RearrayPointCollection(System.Int32)">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.RearrayPointCollection(System.Int32)">
+        </see>
+      </summary>
+      <param name="length">
+      </param>
+    </member>
+    <member name="M:ChartControls.MultipleChartItemCollection.Draw(ChartControls.Drawing.IDrawingContext)">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.Draw(ChartControls.Drawing.IDrawingContext)">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.MultipleChartItemCollection.CreateChartItemWrap(System.Int32)">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.CreateChartItemWrap(System.Int32)">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.MultipleChartItemCollection.UpdateConnectedItem(ChartControls.ChartItem,ChartControls.ChartItem)">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.UpdateConnectedItem(ChartControls.ChartItem,ChartControls.ChartItem)">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.MultipleChartItemCollection.ConvertChartItemLog10(ChartControls.ChartItem)">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.ConvertChartItemLog10(ChartControls.ChartItem)">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.MultipleChartItemCollection.ConvertChartItemPow10(ChartControls.ChartItem)">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.ConvertChartItemPow10(ChartControls.ChartItem)">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.MultipleChartItemCollection.CopyAndAdjustItemValue(ChartControls.ChartItem,ChartControls.CoordinateType)">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.CopyAndAdjustItemValue(ChartControls.ChartItem,ChartControls.CoordinateType)">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.MultipleChartItemCollection.ConvertFrom(ChartControls.QueryItem)">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.ConvertFrom(ChartControls.QueryItem)">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.MultipleChartItemCollection.GetYScaleDiffValue">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.GetYScaleDiffValue">
+        </see>
+      </summary>
+    </member>
+    <member name="T:ChartControls.ParallelLineGraphics">
+      <summary>
+        Parallel line pattern.
+      </summary>
+    </member>
+    <member name="T:ChartControls.PointSnapper">
+      <summary>
+        Coordinate spinner.
+      </summary>
+    </member>
+    <member name="M:ChartControls.PointSnapper.SnapValue(System.Double)">
+      <summary>
+        Trimming coordinate values.
+      </summary>
+    </member>
+    <member name="M:ChartControls.PointSnapper.RoundValue(System.Double)">
+      <summary>
+        Rounding coordinates.
+      </summary>
+    </member>
+    <member name="M:ChartControls.PointSnapper.SnapPoint(System.Windows.Point)">
+      <summary>
+        Trimming coordinates.
+      </summary>
+    </member>
+    <member name="M:ChartControls.PointSnapper.RoundPoint(System.Windows.Point)">
+      <summary>
+        Rounding coordinates.
+      </summary>
+    </member>
+    <member name="T:ChartControls.Properties.Resources">
+      <summary>
+                       A strongly-typed resource class, for looking up localized strings, etc.             A strongly-typed resource class, for looking up localized strings, etc.
+      </summary>
+    </member>
+    <member name="P:ChartControls.Properties.Resources.ResourceManager">
+      <summary>
+                       Returns the cached ResourceManager instance used by this class.             Returns the cached ResourceManager instance used by this class.
+      </summary>
+    </member>
+    <member name="P:ChartControls.Properties.Resources.Culture">
+      <summary>
+                       Overrides the current thread&#39;s CurrentUICulture property for all               resource lookups using this strongly typed resource class.             Overrides the current thread&#39;s CurrentUICulture property for all resource lookups using this strongly typed resource class.
+      </summary>
+    </member>
+    <member name="T:ChartControls.ICustomGraphics">
+      <summary>
+        Custom graphics interface.
+        <see cref="M:ChartControls.ChartControl.StartDrawCustomGraphics(ChartControls.ICustomGraphics)">
+        </see>
+      </summary>
+    </member>
+    <member name="P:ChartControls.ICustomGraphics.PointCount">
+      <summary>
+        The number of coordinates of the point.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ICustomGraphics.Points">
+      <summary>
+        Coordinates of points.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ICustomGraphics.ValuePoints">
+      <summary>
+        Time and value combinations arrays.
+      </summary>
+    </member>
+    <member name="M:ChartControls.ICustomGraphics.StartDraw(System.Windows.Point)">
+      <summary>
+        Begin to draw the first point.
+      </summary>
+      <param name="pt">
+        Coordinates.
+      </param>
+    </member>
+    <member name="M:ChartControls.ICustomGraphics.NextDraw(System.Windows.Point,ChartControls.Drawing.IDrawingContext,System.Boolean)">
+      <summary>
+        Draw the next point.
+      </summary>
+      <param name="pt">
+        Coordinates.
+      </param>
+      <param name="dc">
+        Drawing context.
+        <see cref="T:ChartControls.Drawing.IDrawingContext">
+        </see>
+      </param>
+      <param name="isFinal">
+        Whether it is the last point.
+      </param>
+      <returns>
+        Whether the drawing is complete.
+      </returns>
+    </member>
+    <member name="M:ChartControls.ICustomGraphics.Draw(ChartControls.Drawing.IDrawingContext)">
+      <summary>
+        Draw the entire custom graphics.
+      </summary>
+      <param name="dc">
+        Drawing context.
+        <see cref="T:ChartControls.Drawing.IDrawingContext">
+        </see>
+      </param>
+    </member>
+    <member name="T:ChartControls.ValuePoint">
+      <summary>
+        Value time combination, for the corresponding coordinate points, to achieve custom graphics persistence and recovery.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ValuePoint.Value">
+      <summary>
+        Value.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ValuePoint.Date">
+      <summary>
+        Time.
+      </summary>
+    </member>
+    <member name="P:ChartControls.ValuePoint.Deviation">
+      <summary>
+        Timeline offset percentage.
+      </summary>
+    </member>
+    <member name="T:ChartControls.IPoint2ValuePoint">
+      <summary>
+        Coordinate and time value combinations conversion interface.
+      </summary>
+    </member>
+    <member name="M:ChartControls.IPoint2ValuePoint.ConvertFromPoint(System.Windows.Point)">
+      <summary>
+        Coordinate value of the time switch combinations.
+      </summary>
+    </member>
+    <member name="M:ChartControls.IPoint2ValuePoint.ConvertFromValuePoint(ChartControls.ValuePoint)">
+      <summary>
+        Coordinate value of the time a combination of turn.
+      </summary>
+    </member>
+    <member name="T:ChartControls.ActionResult">
+      <summary>
+        After the requested operation.
+      </summary>
+    </member>
+    <member name="T:ChartControls.QueryData">
+      <summary>
+        Request data.
+      </summary>
+    </member>
+    <member name="M:ChartControls.QueryData.#ctor">
+      <summary>
+        Constructor.
+      </summary>
+    </member>
+    <member name="P:ChartControls.QueryData.QueryId">
+      <summary>
+        Request ID.
+      </summary>
+    </member>
+    <member name="P:ChartControls.QueryData.CollectionId">
+      <summary>
+        Data set ID.
+      </summary>
+    </member>
+    <member name="P:ChartControls.QueryData.HeadDate">
+      <summary>
+        Head time. it can be empty.
+      </summary>
+    </member>
+    <member name="P:ChartControls.QueryData.HeadCount">
+      <summary>
+        The number of requests header data item.
+      </summary>
+    </member>
+    <member name="P:ChartControls.QueryData.TailDate">
+      <summary>
+        Tail time. You do not need to be empty.
+      </summary>
+    </member>
+    <member name="P:ChartControls.QueryData.TailCount">
+      <summary>
+        The tail number of data items requested.
+      </summary>
+    </member>
+    <member name="T:ChartControls.QueryItem">
+      <summary>
+        Request result data item.
+      </summary>
+    </member>
+    <member name="T:ChartControls.QueryDataResult`1">
+      <summary>
+        Request result.
+      </summary>
+      <typeparam name="T">
+      </typeparam>
+    </member>
+    <member name="P:ChartControls.QueryDataResult`1.QueryId">
+      <summary>
+        Request ID.
+      </summary>
+    </member>
+    <member name="P:ChartControls.QueryDataResult`1.CollectionId">
+      <summary>
+        Data set ID.
+      </summary>
+    </member>
+    <member name="P:ChartControls.QueryDataResult`1.IsSucceeded">
+      <summary>
+        Whether the request was successful.
+      </summary>
+    </member>
+    <member name="P:ChartControls.QueryDataResult`1.IsHeadIncluded">
+      <summary>
+        Whether head data.
+      </summary>
+    </member>
+    <member name="P:ChartControls.QueryDataResult`1.HeadItems">
+      <summary>
+        Header data collection
+      </summary>
+    </member>
+    <member name="P:ChartControls.QueryDataResult`1.IsHeadEnd">
+      <summary>
+        Head whether there are data.
+      </summary>
+    </member>
+    <member name="P:ChartControls.QueryDataResult`1.IsTailIncluded">
+      <summary>
+        Tail whether there is data.
+      </summary>
+    </member>
+    <member name="P:ChartControls.QueryDataResult`1.TailItems">
+      <summary>
+        Tail data collection
+      </summary>
+    </member>
+    <member name="P:ChartControls.QueryDataResult`1.IsTailEnd">
+      <summary>
+        Tail are there data.
+      </summary>
+    </member>
+    <member name="T:ChartControls.StockValuesItem">
+      <summary>
+        Candle stick and the value of the data item
+      </summary>
+    </member>
+    <member name="T:ChartControls.StockValuesItemCollection">
+      <summary>
+       Candle stick and the value of the data collection
+      </summary>
+    </member>
+    <member name="T:ChartControls.StockItemStyle">
+      <summary>
+        Candle sticks style.
+      </summary>
+    </member>
+    <member name="F:ChartControls.StockItemStyle.Candle">
+      <summary>
+        Candle.
+      </summary>
+    </member>
+    <member name="F:ChartControls.StockItemStyle.America">
+      <summary>
+        American line.
+      </summary>
+    </member>
+    <member name="F:ChartControls.StockItemStyle.Linear">
+      <summary>
+        Linearity.
+      </summary>
+    </member>
+    <member name="T:ChartControls.StockItem">
+      <summary>
+        Candle stick data items.
+      </summary>
+    </member>
+    <member name="P:ChartControls.StockItem.High">
+      <summary>
+        The highest price.
+      </summary>
+    </member>
+    <member name="P:ChartControls.StockItem.Low">
+      <summary>
+        Lowest price.
+      </summary>
+    </member>
+    <member name="P:ChartControls.StockItem.Open">
+      <summary>
+        Opening price.
+      </summary>
+    </member>
+    <member name="P:ChartControls.StockItem.Close">
+      <summary>
+        Closing price.
+      </summary>
+    </member>
+    <member name="P:ChartControls.StockItem.CloseChange">
+      <summary>
+        Closing price percentage change.
+      </summary>
+    </member>
+    <member name="T:ChartControls.VerticalLine">
+      <summary>
+        Candle sticks coordinate structure.
+      </summary>
+    </member>
+    <member name="F:ChartControls.VerticalLine.YHigh">
+      <summary>
+        Highest point coordinates.
+      </summary>
+    </member>
+    <member name="F:ChartControls.VerticalLine.YLow">
+      <summary>
+        Lowest point coordinates.
+      </summary>
+    </member>
+    <member name="F:ChartControls.VerticalLine.YOpen">
+      <summary>
+        Opening point coordinates.
+      </summary>
+    </member>
+    <member name="T:ChartControls.StockItemCollection">
+      <summary>
+        Candle sticks data collection.
+      </summary>
+    </member>
+    <member name="F:ChartControls.StockItemCollection.HighName">
+      <summary>
+        <see cref="M:ChartControls.StockItemCollection.GetItemValue(System.Int32,System.String)">
+        </see>
+      </summary>
+    </member>
+    <member name="F:ChartControls.StockItemCollection.LowName">
+      <summary>
+        <see cref="M:ChartControls.StockItemCollection.GetItemValue(System.Int32,System.String)">
+        </see>
+      </summary>
+    </member>
+    <member name="F:ChartControls.StockItemCollection.CloseName">
+      <summary>
+        <see cref="M:ChartControls.StockItemCollection.GetItemValue(System.Int32,System.String)">
+        </see>
+      </summary>
+    </member>
+    <member name="F:ChartControls.StockItemCollection.OpenName">
+      <summary>
+        <see cref="M:ChartControls.StockItemCollection.GetItemValue(System.Int32,System.String)">
+        </see>
+      </summary>
+    </member>
+    <member name="F:ChartControls.StockItemCollection.CloseChangeName">
+      <summary>
+        <see cref="M:ChartControls.StockItemCollection.GetItemValue(System.Int32,System.String)">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.StockItemCollection.#ctor(ChartControls.CollectionId,System.Collections.Generic.IEnumerable{ChartControls.StockItem},ChartControls.Drawing.IPen,ChartControls.Drawing.IPen,System.Windows.Media.Brush,System.Boolean)">
+      <summary>
+        Constructor.
+      </summary>
+      <param name="id">
+        Set ID.
+      </param>
+      <param name="items">
+        Data list items.
+      </param>
+      <param name="penRaise">
+        Increased Pen.
+        <see cref="M:ChartControls.Drawing.DrawingObjectFactory.CreatePen(System.Windows.Media.Brush,System.Double)">
+        </see>
+      </param>
+      <param name="penFall">
+        Decline Pen.
+        <see cref="M:ChartControls.Drawing.DrawingObjectFactory.CreatePen(System.Windows.Media.Brush,System.Double)">
+        </see>
+      </param>
+      <param name="fill">
+        Filled brush.
+      </param>
+      <param name="isItemDynamic">
+        Whether dynamic loading data collection items.The default value is false, said they did not dynamically loaded.
+      </param>
+    </member>
+    <member name="P:ChartControls.StockItemCollection.RaisePen">
+      <summary>
+        Ascending line of pen.
+      </summary>
+    </member>
+    <member name="P:ChartControls.StockItemCollection.FallPen">
+      <summary>
+        pen down the line.
+      </summary>
+    </member>
+    <member name="P:ChartControls.StockItemCollection.ItemStyle">
+      <summary>
+        Candle sticks style.
+        <see cref="T:ChartControls.StockItemStyle">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.StockItemCollection.GetItemValue(System.Int32,System.String)">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.GetItemValue(System.Int32,System.String)">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.StockItemCollection.GetItemPositionY(System.Int32,System.String)">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.GetItemPositionY(System.Int32,System.String)">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.StockItemCollection.GetItemPositionX(System.Int32,System.String)">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.GetItemPositionX(System.Int32,System.String)">
+        </see>
+      </summary>
+    </member>
+    <member name="F:ChartControls.StockItemCollection.verticalLines">
+      <summary>
+        Candle sticks coordinate array.
+      </summary>
+    </member>
+    <member name="M:ChartControls.StockItemCollection.FindMaxAndMinIndex">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.FindMaxAndMinIndex">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.StockItemCollection.CalculateCollectionPoints">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.CalculateCollectionPoints">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.StockItemCollection.GetMaxValue">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.GetMaxValue">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.StockItemCollection.GetMinValue">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.GetMinValue">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.StockItemCollection.CopyFromMaster">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.CopyFromMaster">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.StockItemCollection.Draw(ChartControls.Drawing.IDrawingContext)">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.Draw(ChartControls.Drawing.IDrawingContext)">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.StockItemCollection.RearrayPointCollection(System.Int32)">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.RearrayPointCollection(System.Int32)">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.StockItemCollection.ConvertChartItemLog10(ChartControls.ChartItem)">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.ConvertChartItemLog10(ChartControls.ChartItem)">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.StockItemCollection.ConvertChartItemPow10(ChartControls.ChartItem)">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.ConvertChartItemPow10(ChartControls.ChartItem)">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.StockItemCollection.CopyAndAdjustItemValue(ChartControls.ChartItem,ChartControls.CoordinateType)">
+      <summary>
+        <see cref="M:ChartControls.StockItemCollection.CopyAndAdjustItemValue(ChartControls.ChartItem,ChartControls.CoordinateType)">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.StockItemCollection.ConvertFrom(ChartControls.QueryItem)">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.ConvertFrom(ChartControls.QueryItem)">
+        </see>
+      </summary>
+    </member>
+    <member name="T:ChartControls.VolumnItemStyle">
+      <summary>
+        Volume chart styles.
+      </summary>
+    </member>
+    <member name="F:ChartControls.VolumnItemStyle.Bar">
+      <summary>
+        Strips.
+      </summary>
+    </member>
+    <member name="F:ChartControls.VolumnItemStyle.Linear">
+      <summary>
+        Linear.
+      </summary>
+    </member>
+    <member name="T:ChartControls.VolumnItem">
+      <summary>
+        Volume data item.
+      </summary>
+    </member>
+    <member name="P:ChartControls.VolumnItem.Volumn">
+      <summary>
+        Volume.
+      </summary>
+    </member>
+    <member name="P:ChartControls.VolumnItem.Turnover">
+      <summary>
+        Turnover.
+      </summary>
+    </member>
+    <member name="P:ChartControls.VolumnItem.ExchangeRate">
+      <summary>
+        TurnoverRate.
+      </summary>
+    </member>
+    <member name="P:ChartControls.VolumnItem.IsRaise">
+      <summary>
+        Whether the rise.
+      </summary>
+    </member>
+    <member name="T:ChartControls.VolumnItemCollection">
+      <summary>
+        Volume data sets.
+      </summary>
+    </member>
+    <member name="M:ChartControls.VolumnItemCollection.#ctor(ChartControls.CollectionId,System.Collections.Generic.IEnumerable{ChartControls.VolumnItem},ChartControls.Drawing.IPen,ChartControls.Drawing.IPen,System.Boolean)">
+      <summary>
+         Constructor.
+      </summary>
+      <param name="id">
+        Set ID.
+      </param>
+      <param name="items">
+        Data collection list.
+      </param>
+      <param name="penRaise">
+        Increased pen.
+        <see cref="M:ChartControls.Drawing.DrawingObjectFactory.CreatePen(System.Windows.Media.Brush,System.Double)">
+        </see>
+      </param>
+      <param name="penFall">
+        Decline pen.
+        <see cref="M:ChartControls.Drawing.DrawingObjectFactory.CreatePen(System.Windows.Media.Brush,System.Double)">
+        </see>
+      </param>
+      <param name="isItemDynamic">
+        Whether dynamic loading data collection items.The default value is false, said they did not dynamically loaded.
+      </param>
+    </member>
+    <member name="P:ChartControls.VolumnItemCollection.RaisePen">
+      <summary>
+        Ascending line of pen.
+      </summary>
+    </member>
+    <member name="P:ChartControls.VolumnItemCollection.FallPen">
+      <summary>
+        Pen down the line.
+      </summary>
+    </member>
+    <member name="P:ChartControls.VolumnItemCollection.VolumnItemStyle">
+      <summary>
+        Volume chart style.
+      </summary>
+    </member>
+    <member name="M:ChartControls.VolumnItemCollection.Draw(ChartControls.Drawing.IDrawingContext)">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.Draw(ChartControls.Drawing.IDrawingContext)">
+        </see>
+      </summary>
+      <param name="dc">
+      </param>
+    </member>
+    <member name="M:ChartControls.VolumnItemCollection.GetMinValue">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.GetMinValue">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.VolumnItemCollection.CopyAndAdjustItemValue(ChartControls.ChartItem,ChartControls.CoordinateType)">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.CopyAndAdjustItemValue(ChartControls.ChartItem,ChartControls.CoordinateType)">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.VolumnItemCollection.ConvertFrom(ChartControls.QueryItem)">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.ConvertFrom(ChartControls.QueryItem)">
+        </see>
+      </summary>
+    </member>
+    <member name="M:ChartControls.VolumnItemCollection.GetYAxisScales(ChartControls.CoordinateType)">
+      <summary>
+        <see cref="M:ChartControls.ChartItemCollection.GetYAxisScales(ChartControls.CoordinateType)">
+        </see>
+      </summary>
+    </member>
+  </members>
+</doc>
