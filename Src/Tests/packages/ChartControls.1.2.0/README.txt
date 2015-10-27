@@ -1,23 +1,15 @@
 1.README
-
 Stock chart controls, use to create stock chart, including candle sticks chart, time chart, technical indicators etc.
 
 2.AUTHOR
-
 Author: Wayne Gu 
-
 Email Address: Wayneheadache@hotmail.com
 
 3.CHANGELOG
-
 Version 1.1.0
-
   (1) Unify drawing interface.
-  
   (2) Add help document.
-  
   (3) Fix bugs.
-  
 Version 1.1.1
   (1) Add Project Url into nuegt package(i.e. https://github.com/Waynext/ChartControls)
 Version 1.2.0
@@ -25,7 +17,6 @@ Version 1.2.0
   (2) Fix bugs, chart control can not update when properties change.
   
 4.INSTALL
-
    In Visual Studio, search 'ChartControls' or 'Stock' in Nuget, then find ChartControls in result list and install.
    
 5.COPYING / LICENSE

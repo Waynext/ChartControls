@@ -32,13 +32,16 @@ namespace ChartViewU8
     {
         private const string id1 = "000001";
         private const string id2 = "399001";
+        private const string id3 = "600100";
 
         private const string priceFormat = "F2";
         private const string percentFormat = "P2";
         private const string volumnFormat = "N2";
+        private const string dateFormat = "yy/MM/dd";
+        private const string timeFormat = "HH:mm";
         private MainViewModel model;
         private DataLoader loader;
-
+        private DataLoader Timeloader;
         public MainPage()
         {
             this.InitializeComponent();
@@ -47,7 +50,8 @@ namespace ChartViewU8
 
         private async void OnLoaded(object sender, RoutedEventArgs e)
         {
-            loader = new DataLoader();
+            loader = new DataLoader(DataLoader.sFileName);
+            Timeloader = new DataLoader(DataLoader.stFileName, true);
             AdjustViews(true);
             await QueryChartCollection(id1);
         }
@@ -62,7 +66,7 @@ namespace ChartViewU8
                     var collection = price.FindCollection(item.Id);
                     if (collection == null)
                         continue;
-                    model.Date = item.Item.Date;
+                    model.Date = item.Item.Date.ToString(collection is SymmetricChartItemCollection ? timeFormat : dateFormat);
                     var realItem = item.Item as StockItem;
                     if (realItem != null)
                     {
@@ -148,11 +152,15 @@ namespace ChartViewU8
                         var realItem = item.Item as VolumnItem;
                         if (realItem != null)
                         {
-                            model.SetValue<string>(1, MainViewModel.volumnName, realItem.Volumn.ToString(volumnFormat));
+                            model.SetValue<string>(1, MainViewModel.volumnName, realItem.Date.ToString(collection is SymmetricVolumnItemCollection ? timeFormat : dateFormat));
                             model.SetValue<Brush>(1, MainViewModel.volumnClrName, realItem.IsRaise ? collection.RaisePen.Brush : collection.FallPen.Brush);
 
-                            model.SetValue<string>(2, MainViewModel.volumnName, realItem.Turnover.ToString(volumnFormat));
+                            model.SetValue<string>(2, MainViewModel.volumnName, realItem.Volumn.ToString(volumnFormat));
                             model.SetValue<Brush>(2, MainViewModel.volumnClrName, realItem.IsRaise ? collection.RaisePen.Brush : collection.FallPen.Brush);
+
+                            model.SetValue<string>(3, MainViewModel.volumnName, realItem.Turnover.ToString(volumnFormat));
+                            model.SetValue<Brush>(3, MainViewModel.volumnClrName, realItem.IsRaise ? collection.RaisePen.Brush : collection.FallPen.Brush);
+
                         }
                     }
                 }
@@ -190,7 +198,8 @@ namespace ChartViewU8
 
             var collection = CreateCollection(id, chartItems, ChartItemType.Linear, DrawingObjectFactory.CreatePen(model.RaiseBrush, 1), null);
             price.SetMainCollection(collection);
-            price.ForceDraw();
+            SetAttritues();
+            price.ForceDraw(true);
         }
 
         private async Task QueryCandleCollection(string id)
@@ -205,6 +214,7 @@ namespace ChartViewU8
             var collection = CreateCollection(id, svItems.Prices, ChartItemType.Candle, 
                 DrawingObjectFactory.CreatePen(model.RaiseBrush, 1), DrawingObjectFactory.CreatePen(model.FallBrush, 1));
             price.SetMainCollection(collection);
+            SetAttritues();
 
             var maCollections = CreateMVCollections(svItems.Prices);
             foreach (var maColl in maCollections)
@@ -216,7 +226,7 @@ namespace ChartViewU8
                 DrawingObjectFactory.CreatePen(model.RaiseBrush, 1), DrawingObjectFactory.CreatePen(model.FallBrush, 1));
             volumn.SetMainCollection(vCollection);
             volumn.AddConnection(price);
-            price.ForceDraw();
+            price.ForceDraw(true);
         }
 
         private async Task QueryMultipleCollection(string id)
@@ -243,7 +253,8 @@ namespace ChartViewU8
 
             var collection = CreateCollection(id, cItemsList, pens);
             price.SetMainCollection(collection);
-            price.ForceDraw();
+            SetAttritues();
+            price.ForceDraw(true);
         }
 
         private async Task QueryCandleComparisonCollection(string id, string id2)
@@ -267,8 +278,9 @@ namespace ChartViewU8
                 new IPen[] { DrawingObjectFactory.CreatePen(model.ContrastBrush, 1) }
                 );
             price.SetMainCollection(collection);
+            SetAttritues();
             price.CoordinateType = CoordinateType.Percentage;
-            price.ForceDraw();
+            price.ForceDraw(true);
         }
 
         private async Task QueryChartOverlapCollection(string id, string id2)
@@ -290,11 +302,61 @@ namespace ChartViewU8
             var collection = CreateCollection(id, chartItems, ChartItemType.Linear, DrawingObjectFactory.CreatePen(model.RaiseBrush, 1), null);
             var collection2 = CreateCollection(id2, chartItems2, ChartItemType.Linear, DrawingObjectFactory.CreatePen(model.FallBrush, 1), null);
             price.SetMainCollection(collection);
+            SetAttritues();
             price.AddAssistCollection(collection2, true);
-            price.ForceDraw();
+            price.ForceDraw(true);
         }
 
-        enum ChartItemType { Linear, Candle, Volumn };
+        private async Task QueryTimeCollection(string id)
+        {
+            var svItems = await Timeloader.GetStockItems(id);
+            if (svItems == null || svItems.Prices == null || svItems.Volumns == null)
+            {
+                Debug.WriteLine("Can not load candle items");
+                return;
+            }
+
+            var collection = CreateCollection(id, svItems.Prices, ChartItemType.Time,
+                DrawingObjectFactory.CreatePen(model.RaiseBrush, 1), null);
+            price.SetMainCollection(collection);
+            SetAttritues(false);
+            var idAverage = id + "average";
+            var cItems = await Timeloader.GetChartItems(idAverage);
+            if (cItems != null && cItems.Any())
+            {
+                var maCollection = CreateTimeMACollection(cItems, idAverage);
+                price.AddAssistCollection(maCollection);
+            }
+
+            var vCollection = CreateCollection(id, svItems.Volumns, ChartItemType.TimeVolumn,
+                DrawingObjectFactory.CreatePen(model.RaiseBrush, 1), DrawingObjectFactory.CreatePen(model.FallBrush, 1));
+            volumn.SetMainCollection(vCollection);
+            volumn.AddConnection(price);
+            price.ForceDraw(true);
+        }
+
+        private void SetAttritues(bool isReset = true)
+        {
+            if (isReset)
+            {
+                price.XScaleFormat = "yyMM";
+                volumn.XScaleFormat = "yyMM";
+
+                price.CoordinateType = CoordinateType.Linear;
+            }
+            else
+            {
+                price.XScaleFormat = "HH:mm";
+                volumn.XScaleFormat = "HH:mm";
+            }
+        }
+        private ChartItemCollection CreateTimeMACollection(List<ChartItem> cItems, string id)
+        {
+            CollectionId cId = new CollectionId(id);
+            return CreateChartItemCollection(ChartItemType.Time, cItems, cId, DrawingObjectFactory.CreatePen(model.FallBrush, 1), null);
+        }
+
+        enum ChartItemType { Linear, Candle, Volumn, Time, TimeVolumn };
 
         private ChartItemCollection CreateCollection(string id, IEnumerable<ChartItem> chartItems, ChartItemType type, IPen pen1, IPen pen2)
         {
@@ -332,7 +394,14 @@ namespace ChartViewU8
             {
                 coll = new VolumnItemCollection(id, chartItems.OfType<VolumnItem>(), pen1, pen2);
             }
-
+            else if (type == ChartItemType.Time)
+            {
+                coll = new SymmetricChartItemCollection(id, chartItems, pen1, null);
+            }
+            else if (type == ChartItemType.TimeVolumn)
+            {
+                coll = new SymmetricVolumnItemCollection(id, chartItems.OfType<VolumnItem>(), pen1, pen2);
+            }
             return coll;
         }
 
@@ -516,24 +585,38 @@ namespace ChartViewU8
             await QueryChartOverlapCollection(id1, id2);
         }
 
+        private async void OnViewTimeLine(object sender, RoutedEventArgs e)
+        {
+            if (model == null)
+                return;
+
+            model.Reset();
+            AdjustViews(false);
+            await QueryTimeCollection(id3);
+        }
+
         private void OnActionsNone(object sender, RoutedEventArgs e)
         {
             price.PointerStartAction = PointerAction.None;
+            volumn.PointerStartAction = PointerAction.None;
         }
 
         private void OnActionsMeasure(object sender, RoutedEventArgs e)
         {
             price.PointerStartAction = PointerAction.Measure;
+            volumn.PointerStartAction = PointerAction.Measure;
         }
 
         private void OnActionsZoomIn(object sender, RoutedEventArgs e)
         {
             price.PointerStartAction = PointerAction.ZoomIn;
+            volumn.PointerStartAction = PointerAction.ZoomIn;
         }
 
         private void OnActionsSelect(object sender, RoutedEventArgs e)
         {
             price.PointerStartAction = PointerAction.Select;
+            volumn.PointerStartAction = PointerAction.Select;
         }
 
         private async void price_SelectItems(object sender, SelectItemsEventArgs e)
@@ -541,6 +624,20 @@ namespace ChartViewU8
             MessageDialog dialog = new MessageDialog(string.Format("Select items range {0}-{1}",
                     e.Items.First().Date.ToString("yyyyMMdd"), e.Items.Last().Date.ToString("yyyyMMdd")), "Selection");
             await dialog.ShowAsync();
+        }
+        private void OnClickSettings(object sender, RoutedEventArgs e)
+        {
+            settingsGrid.Visibility = Visibility.Visible;
+        }
+
+        private void settingsEditor_ResultReturned(object sender, ResultEventArgs e)
+        {
+            settingsGrid.Visibility = Visibility.Collapsed;
+
+            if(e.IsOk)
+            {
+                price.ForceDraw(true);
+            }
         }
     }
 }

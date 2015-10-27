@@ -21,13 +21,16 @@ namespace ChartControlsDemo
 
     class DataLoader
     {
-        private const string sFileName = "s.json";
+        public const string sFileName = "s.json";
+        public const string stFileName = "st.json";
 
         private List<CompleteShare> shares;
-
-        public DataLoader()
+        private bool calChangeByStart;
+        public DataLoader(string fileName, bool calChangeByStart = false)
         {
-            Load();
+            this.calChangeByStart = calChangeByStart;
+            Load(fileName);
+
         }
 
 
@@ -57,12 +60,12 @@ namespace ChartControlsDemo
             return result;
         }
 
-        private void Load()
+        private void Load(string fileName)
         {
             shares = new List<CompleteShare>();
 
             var location = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            location = Path.Combine(location, sFileName);
+            location = Path.Combine(location, fileName);
 
             var content = File.ReadAllText(location, Encoding.UTF8);
 
@@ -83,7 +86,7 @@ namespace ChartControlsDemo
             {
                 ctList = new List<ChartItem>(s.Dates.Count);
 
-                double preClose = 0;
+                double preClose = calChangeByStart ? s.Closes[0] : 0;
                 for (int i = 0; i < s.Dates.Count; i++)
                 {
                     ctList.Add(new ChartItem()
@@ -93,7 +96,8 @@ namespace ChartControlsDemo
                         ValueChange = i != 0 ? (s.Closes[i] - preClose) / preClose : 0
                     });
 
-                    preClose = s.Closes[i];
+                    if(!calChangeByStart)
+                        preClose = s.Closes[i];
                 }
             }
 
@@ -109,7 +113,7 @@ namespace ChartControlsDemo
                 svList.Prices = new List<StockItem>(s.Dates.Count);
                 svList.Volumns = new List<VolumnItem>(s.Dates.Count);
 
-                double preClose = 0;
+                double preClose = calChangeByStart ? s.Closes[0] : 0;
                 for (int i = 0; i < s.Dates.Count; i++)
                 {
                     var sItem = new StockItem()
@@ -131,7 +135,8 @@ namespace ChartControlsDemo
                         Turnover = s.Turnovers[i],
                         IsRaise = s.Closes[i] > s.Opens[i] || (s.Closes[i] == s.Opens[i] && sItem.CloseChange > 0)
                     });
-                    preClose = s.Closes[i];
+                    if (!calChangeByStart)
+                        preClose = s.Closes[i];
                 }
             }
 

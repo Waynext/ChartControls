@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows.Media;
 using System.Windows;
+using ChartControls;
 
 namespace ChartControlsDemo
 {
@@ -43,8 +44,8 @@ namespace ChartControlsDemo
 
         #endregion
 
-        private DateTime date;
-        public DateTime Date
+        private string date;
+        public string Date
         {
             get
             { return date; }
@@ -54,6 +55,7 @@ namespace ChartControlsDemo
                 ReportPropertyChanged("Date");
             }
         }
+
         public string Price1
         {
             get;
@@ -234,5 +236,249 @@ namespace ChartControlsDemo
                 SetValue<Brush>(i, priceClrName, null);
             }
         }
+
+        #region ChartControls Properties
+        private int borderThickness = 1;
+        public int BorderThickness
+        {
+            get
+            {
+                return borderThickness;
+            }
+            set
+            {
+                borderThickness = value;
+                ReportPropertyChanged("BorderThickness");
+            }
+        }
+
+        private string border = "Black";
+        public string Border
+        {
+            get
+            {
+                return border;
+            }
+            set
+            {
+                border = value;
+                ReportPropertyChanged("Border");
+            }
+        }
+
+        private YScaleDock yScaleDock = YScaleDock.Right;
+        public YScaleDock YScaleDock
+        {
+            get
+            {
+                return yScaleDock;
+            }
+            set
+            {
+                yScaleDock = value;
+                ReportPropertyChanged("YScaleDock");
+            }
+        }
+
+        private XScaleDock xScaleDock = XScaleDock.Bottom;
+        public XScaleDock XScaleDock
+        {
+            get
+            {
+                return xScaleDock;
+            }
+            set
+            {
+                xScaleDock = value;
+                ReportPropertyChanged("XScaleDock");
+            }
+        }
+
+        private const string whiteColor = "White";
+        private const string blackColor = "Black";
+        private const string grayColor = "Gray";
+
+        private string background = whiteColor;
+        public string Background
+        {
+            get
+            {
+                return background;
+            }
+            set
+            {
+                background = value;
+                ReportPropertyChanged("Background");
+                if(background == whiteColor)
+                {
+                    Border = Foreground = blackColor;
+                }
+                else if(background == blackColor)
+                {
+                    Border = Foreground = whiteColor;
+                }
+            }
+        }
+
+        private string foreground = blackColor;
+        public string Foreground
+        {
+            get
+            {
+                return foreground;
+            }
+            set
+            {
+                foreground = value;
+                ReportPropertyChanged("Foreground");
+            }
+        }
+
+        private int yScaleWidth = 60;
+        public int YScaleWidth
+        {
+            get
+            {
+                return yScaleWidth;
+            }
+            set
+            {
+                yScaleWidth = value;
+                ReportPropertyChanged("YScaleWidth");
+            }
+        }
+        private int xScaleHeight = 15;
+        public int XScaleHeight
+        {
+            get
+            {
+                return xScaleHeight;
+            }
+            set
+            {
+                xScaleHeight = value;
+                ReportPropertyChanged("XScaleHeight");
+            }
+        }
+
+        private CoordinateType coordinateType = CoordinateType.Linear;
+        public CoordinateType CoordinateType
+        {
+            get
+            {
+                return coordinateType;
+            }
+            set
+            {
+                coordinateType = value;
+                ReportPropertyChanged("CoordinateType");
+            }
+        }
+
+        private string cursorLines = grayColor;
+        public string CursorLines
+        {
+            get
+            {
+                return cursorLines;
+            }
+            set
+            {
+                cursorLines = value;
+                ReportPropertyChanged("CursorLines");
+
+            }
+        }
+
+        private int cursorLinesThickness = 1;
+        public int CursorLinesThickness
+        {
+            get
+            {
+                return cursorLinesThickness;
+            }
+            set
+            {
+                cursorLinesThickness = value;
+                ReportPropertyChanged("CursorLinesThickness");
+
+            }
+        }
+
+        private DoubleCollection cursorLinesDashes = null;
+        public DoubleCollection CursorLinesDashes
+        {
+            get { return cursorLinesDashes; }
+            set {
+                cursorLinesDashes = value;
+                ReportPropertyChanged("CursorLinesDashes");
+            }
+        }
+
+        private string scaleLineColor = grayColor;
+        public string ScaleLineColor
+        {
+            get
+            {
+                return scaleLineColor;
+            }
+            set
+            {
+                scaleLineColor = value;
+                ReportPropertyChanged("ScaleLineColor");
+            }
+        }
+
+        private int scaleLineThickness = 1;
+        public int ScaleLineThickness
+        {
+            get
+            {
+                return scaleLineThickness;
+            }
+            set
+            {
+                scaleLineThickness = value;
+                ReportPropertyChanged("ScaleLineThickness");
+
+            }
+        }
+
+        private DoubleCollection scaleLineDashes = null;
+        public DoubleCollection ScaleLineDashes
+        {
+            get { return scaleLineDashes; }
+            set
+            {
+                scaleLineDashes = value;
+                ReportPropertyChanged("ScaleLineDashes");
+            }
+        }
+
+        private string fontFamily = "Arial";
+        public string FontFamily
+        {
+            get
+            {
+                return fontFamily;
+            }
+            set
+            {
+                fontFamily = value;
+                ReportPropertyChanged("FontFamily");
+            }
+        }
+
+        private int fontSize = 10;
+        public int FontSize
+        {
+            get { return fontSize; }
+            set {
+                fontSize = value;
+                ReportPropertyChanged("FontSize");
+            }
+        }
+
+        #endregion
     }
 }

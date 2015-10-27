@@ -26,12 +26,16 @@ namespace ChartControlsDemo
     {
         private const string id1 = "000001";
         private const string id2 = "399001";
+        private const string id3 = "600100";
 
         private const string priceFormat = "F2";
         private const string percentFormat = "P2";
         private const string volumnFormat = "N2";
+        private const string dateFormat = "yy/MM/dd";
+        private const string timeFormat = "HH:mm";
         private MainViewModel model;
         private DataLoader loader;
+        private DataLoader Timeloader;
         public MainWindow()
         {
             InitializeComponent();
@@ -41,7 +45,8 @@ namespace ChartControlsDemo
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            loader = new DataLoader();
+            loader = new DataLoader(DataLoader.sFileName);
+            Timeloader = new DataLoader(DataLoader.stFileName, true);
             AdjustViews(true);
             QueryChartCollection(id1);
         }
@@ -56,7 +61,7 @@ namespace ChartControlsDemo
                     var collection = price.FindCollection(item.Id);
                     if (collection == null)
                         continue;
-                    model.Date = item.Item.Date;
+                    model.Date = item.Item.Date.ToString(collection is SymmetricChartItemCollection ? timeFormat : dateFormat);
                     var realItem = item.Item as StockItem;
                     if (realItem != null)
                     {
@@ -142,11 +147,15 @@ namespace ChartControlsDemo
                         var realItem = item.Item as VolumnItem;
                         if (realItem != null)
                         {
-                            model.SetValue<string>(1, MainViewModel.volumnName, realItem.Volumn.ToString(volumnFormat));
+                            model.SetValue<string>(1, MainViewModel.volumnName, realItem.Date.ToString(collection is SymmetricVolumnItemCollection ? timeFormat : dateFormat));
                             model.SetValue<Brush>(1, MainViewModel.volumnClrName, realItem.IsRaise ? collection.RaisePen.Brush : collection.FallPen.Brush);
 
-                            model.SetValue<string>(2, MainViewModel.volumnName, realItem.Turnover.ToString(volumnFormat));
+                            model.SetValue<string>(2, MainViewModel.volumnName, realItem.Volumn.ToString(volumnFormat));
                             model.SetValue<Brush>(2, MainViewModel.volumnClrName, realItem.IsRaise ? collection.RaisePen.Brush : collection.FallPen.Brush);
+
+                            model.SetValue<string>(3, MainViewModel.volumnName, realItem.Turnover.ToString(volumnFormat));
+                            model.SetValue<Brush>(3, MainViewModel.volumnClrName, realItem.IsRaise ? collection.RaisePen.Brush : collection.FallPen.Brush);
+
                         }
                     }
                 }
@@ -178,6 +187,15 @@ namespace ChartControlsDemo
         {
             var menu = this.FindResource("ViewsMenu") as ContextMenu;
             if(menu != null)
+            {
+                menu.IsOpen = true;
+            }
+        }
+
+        private void OnClickAction(object sender, RoutedEventArgs e)
+        {
+            var menu = this.FindResource("ActionsMenu") as ContextMenu;
+            if (menu != null)
             {
                 menu.IsOpen = true;
             }
@@ -219,6 +237,13 @@ namespace ChartControlsDemo
             QueryChartOverlapCollection(id1, id2);
         }
 
+        private void OnViewTimeLine(object sender, RoutedEventArgs e)
+        {
+            model.Reset();
+            AdjustViews(false);
+            QueryTimeCollection(id3);
+        }
+
         private void QueryChartCollection(string id)
         {
             var chartItems = loader.GetChartItems(id);
@@ -230,6 +255,7 @@ namespace ChartControlsDemo
 
             var collection = CreateCollection(id, chartItems, ChartItemType.Linear, DrawingObjectFactory.CreatePen(model.RaiseBrush, 1), null);
             price.SetMainCollection(collection);
+            SetAttritues();
             price.ForceDraw();
         }
 
@@ -245,6 +271,7 @@ namespace ChartControlsDemo
             var collection = CreateCollection(id, svItems.Prices, ChartItemType.Candle, 
                 DrawingObjectFactory.CreatePen(model.RaiseBrush, 1), DrawingObjectFactory.CreatePen(model.FallBrush, 1));
             price.SetMainCollection(collection);
+            SetAttritues();
 
             var maCollections = CreateMVCollections(svItems.Prices);
             foreach (var maColl in maCollections)
@@ -256,6 +283,7 @@ namespace ChartControlsDemo
                 DrawingObjectFactory.CreatePen(model.RaiseBrush, 1), DrawingObjectFactory.CreatePen(model.FallBrush, 1));
             volumn.SetMainCollection(vCollection);
             volumn.AddConnection(price);
+
             price.ForceDraw();
         }
 
@@ -283,6 +311,7 @@ namespace ChartControlsDemo
 
             var collection = CreateCollection(id, cItemsList, pens);
             price.SetMainCollection(collection);
+            SetAttritues();
             price.ForceDraw();
         }
 
@@ -307,6 +336,7 @@ namespace ChartControlsDemo
                 new IPen[] { DrawingObjectFactory.CreatePen(model.ContrastBrush, 1) }
                 );
             price.SetMainCollection(collection);
+            SetAttritues();
             price.CoordinateType = CoordinateType.Percentage;
             price.ForceDraw();
         }
@@ -330,11 +360,63 @@ namespace ChartControlsDemo
             var collection = CreateCollection(id, chartItems, ChartItemType.Linear, DrawingObjectFactory.CreatePen(model.RaiseBrush, 1), null);
             var collection2 = CreateCollection(id2, chartItems2, ChartItemType.Linear, DrawingObjectFactory.CreatePen(model.FallBrush, 1), null);
             price.SetMainCollection(collection);
+            SetAttritues();
             price.AddAssistCollection(collection2, true);
             price.ForceDraw();
         }
 
-        enum ChartItemType { Linear, Candle, Volumn };
+        private void QueryTimeCollection(string id)
+        {
+            var svItems = Timeloader.GetStockItems(id);
+            if (svItems == null || svItems.Prices == null || svItems.Volumns == null)
+            {
+                Debug.WriteLine("Can not load candle items");
+                return;
+            }
+
+            var collection = CreateCollection(id, svItems.Prices, ChartItemType.Time,
+                DrawingObjectFactory.CreatePen(model.RaiseBrush, 1), null);
+            price.SetMainCollection(collection);
+            SetAttritues(false);
+            var idAverage = id + "average";
+            var cItems = Timeloader.GetChartItems(idAverage);
+            if (cItems != null && cItems.Any())
+            {
+                var maCollection = CreateTimeMACollection(cItems, idAverage);
+                price.AddAssistCollection(maCollection);
+            }
+
+            var vCollection = CreateCollection(id, svItems.Volumns, ChartItemType.TimeVolumn,
+                DrawingObjectFactory.CreatePen(model.RaiseBrush, 1), DrawingObjectFactory.CreatePen(model.FallBrush, 1));
+            volumn.SetMainCollection(vCollection);
+            volumn.AddConnection(price);
+            price.ForceDraw();
+        }
+
+        private void SetAttritues(bool isReset = true)
+        {
+            if (isReset)
+            {
+                price.XScaleFormat = "yyMM";
+                volumn.XScaleFormat = "yyMM";
+
+                price.CoordinateType = CoordinateType.Linear;
+            }
+            else
+            {
+                price.XScaleFormat = "HH:mm";
+                volumn.XScaleFormat = "HH:mm";
+            }
+
+            price.CoordinateType = CoordinateType.Linear;
+        }
+        private ChartItemCollection CreateTimeMACollection(List<ChartItem> cItems, string id)
+        {
+            CollectionId cId = new CollectionId(id);
+            return CreateChartItemCollection(ChartItemType.Time, cItems, cId, DrawingObjectFactory.CreatePen(model.ContrastBrush, 1), null);
+        }
+
+        enum ChartItemType { Linear, Candle, Volumn, Time, TimeVolumn };
 
         private ChartItemCollection CreateCollection(string id, IEnumerable<ChartItem> chartItems, ChartItemType type, IPen pen1, IPen pen2)
         {
@@ -372,7 +454,14 @@ namespace ChartControlsDemo
             {
                 coll = new VolumnItemCollection(id, chartItems.OfType<VolumnItem>(), pen1, pen2);
             }
-
+            else if (type == ChartItemType.Time)
+            {
+                coll = new SymmetricChartItemCollection(id, chartItems, pen1, null);
+            }
+            else if (type == ChartItemType.TimeVolumn)
+            {
+                coll = new SymmetricVolumnItemCollection(id, chartItems.OfType<VolumnItem>(), pen1, pen2);
+            }
             return coll;
         }
 
@@ -503,6 +592,30 @@ namespace ChartControlsDemo
             }
         }
 
+        private void OnActionsNone(object sender, RoutedEventArgs e)
+        {
+            price.PointerStartAction = PointerAction.None;
+            volumn.PointerStartAction = PointerAction.None;
+        }
+
+        private void OnActionsMeasure(object sender, RoutedEventArgs e)
+        {
+            price.PointerStartAction = PointerAction.Measure;
+            volumn.PointerStartAction = PointerAction.Measure;
+        }
+
+        private void OnActionsZoomIn(object sender, RoutedEventArgs e)
+        {
+            price.PointerStartAction = PointerAction.ZoomIn;
+            volumn.PointerStartAction = PointerAction.ZoomIn;
+        }
+
+        private void OnActionsSelect(object sender, RoutedEventArgs e)
+        {
+            price.PointerStartAction = PointerAction.Select;
+            volumn.PointerStartAction = PointerAction.Select;
+        }
+
         private void price_SelectItems(object sender, SelectItemsEventArgs e)
         {
             if (e.Items.Any())
@@ -510,6 +623,21 @@ namespace ChartControlsDemo
                 System.Windows.MessageBox.Show(string.Format("Select items range {0}-{1}",
                     e.Items.First().Date.ToString("yyyyMMdd"), e.Items.Last().Date.ToString("yyyyMMdd")), "Selection");
 
+            }
+        }
+
+        private void OnClickSettings(object sender, RoutedEventArgs e)
+        {
+            settingsGrid.Visibility = Visibility.Visible;
+        }
+
+        private void settingsEditor_ResultReturned(object sender, ResultEventArgs e)
+        {
+            settingsGrid.Visibility = Visibility.Collapsed;
+
+            if(e.IsOk)
+            {
+                price.ForceDraw(true);
             }
         }
     }

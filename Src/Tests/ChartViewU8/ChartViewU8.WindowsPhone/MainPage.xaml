@@ -18,6 +18,7 @@
             <MenuFlyoutItem Text="Multiple" Click="OnViewMultiple"/>
             <MenuFlyoutItem Text="Comparison" Click="OnViewComparison"/>
             <MenuFlyoutItem Text="Overlap" Click="OnViewOverlap"/>
+            <MenuFlyoutItem Text="TimeLine" Click="OnViewTimeLine"/>
         </MenuFlyout>
         <MenuFlyout x:Key="ActionsMenu">
             <MenuFlyoutItem Text="None" Click="OnActionsNone"/>
@@ -27,38 +28,62 @@
         </MenuFlyout>
         <local:StringFormatConverter x:Key="StringFormatConverter" />
     </Page.Resources>
-    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}" Name="grid1">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="130*"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="50*"/>
-            <RowDefinition Height="60"/>
-        </Grid.RowDefinitions>
-        <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="ChartControls Demo" FontFamily="Aharoni" FontSize="40" VerticalAlignment="Center" HorizontalAlignment="Center" TextTrimming="WordEllipsis"/>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-            <TextBlock Text="{Binding Date, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:yyyyMMdd}'}" Style="{StaticResource DynamicFont}" />
-                <TextBlock Text="{Binding Price1}" Style="{StaticResource DynamicFont}" Foreground="{Binding PriceClr1}"/>
-                <TextBlock Text="{Binding Price2}" Style="{StaticResource DynamicFont}" Foreground="{Binding PriceClr2}"/>
-                <TextBlock Text="{Binding Price3}" Style="{StaticResource DynamicFont}" Foreground="{Binding PriceClr3}"/>
-                <TextBlock Text="{Binding Price4}" Style="{StaticResource DynamicFont}" Foreground="{Binding PriceClr4}"/>
-                <TextBlock Text="{Binding Price5}" Style="{StaticResource DynamicFont}" Foreground="{Binding PriceClr5}"/>
-                <TextBlock Text="{Binding Price6}" Style="{StaticResource DynamicFont}" Foreground="{Binding PriceClr6}"/>
-                <TextBlock Text="{Binding Price7}" Style="{StaticResource DynamicFont}" Foreground="{Binding PriceClr7}"/>
-                <TextBlock Text="{Binding Price8}" Style="{StaticResource DynamicFont}" Foreground="{Binding PriceClr8}"/>
-        </StackPanel>
-        <controls:ChartControl x:Name="price" Background="White" CursorLines="Gray" Grid.Row="2" PointerStartAction="ZoomIn" CursorMoved="price_CursorMoved" YScaleDock="InnerLeft" SelectItems="price_SelectItems"/>
-            <StackPanel Name="volumnTitle" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                <TextBlock Text="{Binding Volumn1}" Style="{StaticResource DynamicFont}" Foreground="{Binding VolumnClr1}"/>
-                <TextBlock Text="{Binding Volumn2}" Style="{StaticResource DynamicFont}" Foreground="{Binding VolumnClr2}"/>
-                <TextBlock Text="{Binding Volumn3}" Style="{StaticResource DynamicFont}" Foreground="{Binding VolumnClr3}"/>
-        </StackPanel>
-        <controls:ChartControl x:Name="volumn" Background="White" CursorLines="Gray" Grid.Row="4" NumberScaleFormat="N0" CursorMoved="volumn_CursorMoved"  YScaleDock="InnerLeft" SelectItems="price_SelectItems"/>
-        <StackPanel Grid.Row="5" HorizontalAlignment="Left" Orientation="Horizontal">
-            <Button Content="Views" VerticalAlignment="Stretch" Width="88" Margin="0,0,5,0" Flyout="{StaticResource ViewsMenu}"/>
-            <Button Content="Actions" VerticalAlignment="Stretch" Width="88" Margin="0,0,5,0" Flyout="{StaticResource ActionsMenu}"/>
-        </StackPanel>
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <Grid Name="ViewGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="130*"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+                <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="ChartControls Demo" FontFamily="Aharoni" FontSize="40" VerticalAlignment="Center" HorizontalAlignment="Center" TextTrimming="WordEllipsis"/>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <TextBlock Text="{Binding Date, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:yyyyMMdd}'}" Style="{StaticResource DynamicFont}" />
+                    <TextBlock Text="{Binding Price1}" Style="{StaticResource DynamicFont}" Foreground="{Binding PriceClr1}"/>
+                    <TextBlock Text="{Binding Price2}" Style="{StaticResource DynamicFont}" Foreground="{Binding PriceClr2}"/>
+                    <TextBlock Text="{Binding Price3}" Style="{StaticResource DynamicFont}" Foreground="{Binding PriceClr3}"/>
+                    <TextBlock Text="{Binding Price4}" Style="{StaticResource DynamicFont}" Foreground="{Binding PriceClr4}"/>
+                    <TextBlock Text="{Binding Price5}" Style="{StaticResource DynamicFont}" Foreground="{Binding PriceClr5}"/>
+                    <TextBlock Text="{Binding Price6}" Style="{StaticResource DynamicFont}" Foreground="{Binding PriceClr6}"/>
+                    <TextBlock Text="{Binding Price7}" Style="{StaticResource DynamicFont}" Foreground="{Binding PriceClr7}"/>
+                    <TextBlock Text="{Binding Price8}" Style="{StaticResource DynamicFont}" Foreground="{Binding PriceClr8}"/>
+            </StackPanel>
+            <controls:ChartControl x:Name="price" Grid.Row="2" PointerStartAction="Measure" CursorMoved="price_CursorMoved" SelectItems="price_SelectItems" 
+                                    BorderThickness="{Binding BorderThickness, Mode=TwoWay}" Border="{Binding Border, Mode=TwoWay}" YScaleDock="{Binding YScaleDock, Mode=TwoWay}" Background="{Binding Background, Mode=TwoWay}" 
+                                    Foreground="{Binding Foreground, Mode=TwoWay}" XScaleDock="{Binding XScaleDock, Mode=TwoWay}" YScaleWidth="{Binding YScaleWidth, Mode=TwoWay}" XScaleHeight="{Binding XScaleHeight, Mode=TwoWay}"
+                                    CoordinateType="{Binding CoordinateType, Mode=TwoWay}" CursorLines="{Binding CursorLines, Mode=TwoWay}" CursorLinesThickness="{Binding CursorLinesThickness, Mode=TwoWay}"
+                                    CursorLinesDashes="{Binding CursorLinesDashes, Mode=TwoWay}" YScaleLineColor="{Binding ScaleLineColor, Mode=TwoWay}" XScaleLineColor="{Binding ScaleLineColor, Mode=TwoWay}"
+                                    YScaleLineThickness="{Binding ScaleLineThickness, Mode=TwoWay}" XScaleLineThickness="{Binding ScaleLineThickness, Mode=TwoWay}" YScaleLineDashes="{Binding ScaleLineDashes, Mode=TwoWay}"
+                                    XScaleLineDashes="{Binding ScaleLineDashes, Mode=TwoWay}" FontFamily="{Binding FontFamily, Mode=TwoWay}" FontSize="{Binding FontSize, Mode=TwoWay}" SelectionBorderColor="{Binding Foreground, Mode=TwoWay}"/>
+                <StackPanel Name="volumnTitle" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding Volumn1}" Style="{StaticResource DynamicFont}" Foreground="{Binding VolumnClr1}"/>
+                    <TextBlock Text="{Binding Volumn2}" Style="{StaticResource DynamicFont}" Foreground="{Binding VolumnClr2}"/>
+                    <TextBlock Text="{Binding Volumn3}" Style="{StaticResource DynamicFont}" Foreground="{Binding VolumnClr3}"/>
+                </StackPanel>
+            <controls:ChartControl x:Name="volumn" Grid.Row="4" YScaleFormat="N0" YCursorFormat="N0" CursorMoved="volumn_CursorMoved" SelectItems="price_SelectItems" 
+                                    XScaleLineThickness="0" YScaleLineThickness="0" BorderThickness="{Binding BorderThickness, Mode=TwoWay}" Border="{Binding Border, Mode=TwoWay}"  YScaleDock="{Binding YScaleDock, Mode=TwoWay}" 
+                                    Background="{Binding Background, Mode=TwoWay}" Foreground="{Binding Foreground, Mode=TwoWay}" XScaleDock="{Binding XScaleDock, Mode=TwoWay}" YScaleWidth="{Binding YScaleWidth, Mode=TwoWay}" 
+                                    XScaleHeight="{Binding XScaleHeight, Mode=TwoWay}"  CursorLines="{Binding CursorLines, Mode=TwoWay}" CursorLinesThickness="{Binding CursorLinesThickness, Mode=TwoWay}"
+                                    CursorLinesDashes="{Binding CursorLinesDashes, Mode=TwoWay}" YScaleLineColor="{Binding ScaleLineColor, Mode=TwoWay}" XScaleLineColor="{Binding ScaleLineColor, Mode=TwoWay}"
+                                    FontFamily="{Binding FontFamily, Mode=TwoWay}" FontSize="{Binding FontSize, Mode=TwoWay}" SelectionBorderColor="{Binding Foreground, Mode=TwoWay}"/>
+            <StackPanel Grid.Row="5" HorizontalAlignment="Left" Orientation="Horizontal">
+                <Button Content="Views" VerticalAlignment="Stretch" Width="88" Margin="0,0,5,0" Flyout="{StaticResource ViewsMenu}"/>
+                <Button Content="Actions" VerticalAlignment="Stretch" Width="88" Margin="0,0,5,0" Flyout="{StaticResource ActionsMenu}"/>
+                <Button Content="Settings" VerticalAlignment="Stretch" Width="88" Margin="0,0,5,0" Click="OnClickSettings"/>
+            </StackPanel>
+        
 
+        </Grid>
+        <Grid Name="settingsGrid" Visibility="Collapsed">
+            <local:SettingsEditor ResultReturned="settingsEditor_ResultReturned" BorderThickness1="{Binding BorderThickness, Mode=TwoWay}"
+                                 Border="{Binding Border, Mode=TwoWay}" YScaleDock="{Binding YScaleDock, Mode=TwoWay}" ControlBackground="{Binding Background, Mode=TwoWay}"
+                                 XScaleDock="{Binding XScaleDock, Mode=TwoWay}" YScaleWidth="{Binding YScaleWidth, Mode=TwoWay}" XScaleHeight="{Binding XScaleHeight, Mode=TwoWay}" 
+                                 CoordinateType="{Binding CoordinateType, Mode=TwoWay}" CursorLines="{Binding CursorLines, Mode=TwoWay}"
+                                 CursorLinesThickness="{Binding CursorLinesThickness, Mode=TwoWay}" CursorLinesDashes="{Binding CursorLinesDashes, Mode=TwoWay}"
+                                 ScaleLineColor="{Binding ScaleLineColor, Mode=TwoWay}" ScaleLineThickness="{Binding ScaleLineThickness, Mode=TwoWay}"
+                                 ScaleLineDashes="{Binding ScaleLineDashes, Mode=TwoWay}" FontFamily="{Binding FontFamily, Mode=TwoWay}" FontSize="{Binding FontSize, Mode=TwoWay}"></local:SettingsEditor>
+        </Grid>
     </Grid>
 </Page>

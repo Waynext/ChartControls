@@ -20,16 +20,19 @@ namespace ChartViewU8
 
     class DataLoader
     {
-        private const string sFileName = "s.json";
-        private const string sFileUri = "ms-appx://s.json";
+        public const string sFileName = "s.json";
+        public const string sFileUri = "ms-appx://s.json";
+        public const string stFileName = "st.json";
+        public const string stFileUri = "ms-appx://st.json";
 
         private Task loadTask;
 
         private List<CompleteShare> shares;
-        public DataLoader()
+        private bool calChangeByStart;
+        public DataLoader(string fileName, bool calChangeByStart = false)
         {
-            Debug.WriteLine("");
-            loadTask = Load();
+            this.calChangeByStart = calChangeByStart;
+            loadTask = Load(fileName);
         }
 
 
@@ -63,12 +66,12 @@ namespace ChartViewU8
             return result;
         }
 
-        private async Task Load()
+        private async Task Load(string fileName)
         {
             shares = new List<CompleteShare>();
 
             var location = Windows.ApplicationModel.Package.Current.InstalledLocation.Path;
-            var file = await StorageFile.GetFileFromPathAsync(Path.Combine(location, sFileName));
+            var file = await StorageFile.GetFileFromPathAsync(Path.Combine(location, fileName));
 
             var content = await FileIO.ReadTextAsync(file, Windows.Storage.Streams.UnicodeEncoding.Utf8);
 
@@ -89,7 +92,7 @@ namespace ChartViewU8
             {
                 ctList = new List<ChartItem>(s.Dates.Count);
 
-                double preClose = 0;
+                double preClose = calChangeByStart ? s.Closes[0] : 0;
                 for (int i = 0; i < s.Dates.Count; i++)
                 {
                     ctList.Add(new ChartItem()
@@ -99,7 +102,8 @@ namespace ChartViewU8
                         ValueChange = i != 0 ? (s.Closes[i] - preClose) / preClose : 0
                     });
 
-                    preClose = s.Closes[i];
+                    if (!calChangeByStart)
+                        preClose = s.Closes[i];
                 }
             }
 
@@ -115,7 +119,7 @@ namespace ChartViewU8
                 svList.Prices = new List<StockItem>(s.Dates.Count);
                 svList.Volumns = new List<VolumnItem>(s.Dates.Count);
 
-                double preClose = 0;
+                double preClose = calChangeByStart ? s.Closes[0] : 0;
                 for (int i = 0; i < s.Dates.Count; i++)
                 {
                     var sItem = new StockItem()
@@ -137,7 +141,8 @@ namespace ChartViewU8
                         Turnover = s.Turnovers[i],
                         IsRaise = s.Closes[i] > s.Opens[i] || (s.Closes[i] == s.Opens[i] && sItem.CloseChange > 0)
                     });
-                    preClose = s.Closes[i];
+                    if (!calChangeByStart)
+                        preClose = s.Closes[i];
                 }
             }
 
