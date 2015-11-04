@@ -15,6 +15,9 @@ Version 1.1.1
 Version 1.2.0
   (1) Add one day line.
   (2) Fix bugs, chart control can not update when properties change.
+Version 1.3.0
+  (1) Support collection change.
+  (2) Fix bugs.
   
 4.INSTALL
    In Visual Studio, search 'ChartControls' or 'Stock' in Nuget, then find ChartControls in result list and install.

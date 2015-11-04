@@ -3,6 +3,14 @@
   "version": 1,
   "targets": {
     "UAP,Version=v10.0": {
+      "ChartControls/1.3.0": {
+        "compile": {
+          "lib/portable-win81+wpa81+.NETCore50/ChartControls.dll": {}
+        },
+        "runtime": {
+          "lib/portable-win81+wpa81+.NETCore50/ChartControls.dll": {}
+        }
+      },
       "Microsoft.ApplicationInsights/1.0.0": {
         "compile": {
           "lib/portable-win81+wpa81/Microsoft.ApplicationInsights.dll": {}
@@ -1577,6 +1585,14 @@
       }
     },
     "UAP,Version=v10.0/win10-arm": {
+      "ChartControls/1.3.0": {
+        "compile": {
+          "lib/portable-win81+wpa81+.NETCore50/ChartControls.dll": {}
+        },
+        "runtime": {
+          "lib/portable-win81+wpa81+.NETCore50/ChartControls.dll": {}
+        }
+      },
       "Microsoft.ApplicationInsights/1.0.0": {
         "compile": {
           "lib/portable-win81+wpa81/Microsoft.ApplicationInsights.dll": {}
@@ -3241,6 +3257,14 @@
       }
     },
     "UAP,Version=v10.0/win10-arm-aot": {
+      "ChartControls/1.3.0": {
+        "compile": {
+          "lib/portable-win81+wpa81+.NETCore50/ChartControls.dll": {}
+        },
+        "runtime": {
+          "lib/portable-win81+wpa81+.NETCore50/ChartControls.dll": {}
+        }
+      },
       "Microsoft.ApplicationInsights/1.0.0": {
         "compile": {
           "lib/portable-win81+wpa81/Microsoft.ApplicationInsights.dll": {}
@@ -4877,6 +4901,14 @@
       }
     },
     "UAP,Version=v10.0/win10-x64": {
+      "ChartControls/1.3.0": {
+        "compile": {
+          "lib/portable-win81+wpa81+.NETCore50/ChartControls.dll": {}
+        },
+        "runtime": {
+          "lib/portable-win81+wpa81+.NETCore50/ChartControls.dll": {}
+        }
+      },
       "Microsoft.ApplicationInsights/1.0.0": {
         "compile": {
           "lib/portable-win81+wpa81/Microsoft.ApplicationInsights.dll": {}
@@ -6546,6 +6578,14 @@
       }
     },
     "UAP,Version=v10.0/win10-x64-aot": {
+      "ChartControls/1.3.0": {
+        "compile": {
+          "lib/portable-win81+wpa81+.NETCore50/ChartControls.dll": {}
+        },
+        "runtime": {
+          "lib/portable-win81+wpa81+.NETCore50/ChartControls.dll": {}
+        }
+      },
       "Microsoft.ApplicationInsights/1.0.0": {
         "compile": {
           "lib/portable-win81+wpa81/Microsoft.ApplicationInsights.dll": {}
@@ -8182,6 +8222,14 @@
       }
     },
     "UAP,Version=v10.0/win10-x86": {
+      "ChartControls/1.3.0": {
+        "compile": {
+          "lib/portable-win81+wpa81+.NETCore50/ChartControls.dll": {}
+        },
+        "runtime": {
+          "lib/portable-win81+wpa81+.NETCore50/ChartControls.dll": {}
+        }
+      },
       "Microsoft.ApplicationInsights/1.0.0": {
         "compile": {
           "lib/portable-win81+wpa81/Microsoft.ApplicationInsights.dll": {}
@@ -9851,6 +9899,14 @@
       }
     },
     "UAP,Version=v10.0/win10-x86-aot": {
+      "ChartControls/1.3.0": {
+        "compile": {
+          "lib/portable-win81+wpa81+.NETCore50/ChartControls.dll": {}
+        },
+        "runtime": {
+          "lib/portable-win81+wpa81+.NETCore50/ChartControls.dll": {}
+        }
+      },
       "Microsoft.ApplicationInsights/1.0.0": {
         "compile": {
           "lib/portable-win81+wpa81/Microsoft.ApplicationInsights.dll": {}
@@ -11488,6 +11544,26 @@
     }
   },
   "libraries": {
+    "ChartControls/1.3.0": {
+      "sha512": "mvStiZaUqox32gdFiqHLYMxDOvr9kYRYtctMzpSUvhFb1zYmVzJngNVk8JtaUEFBHGVYt6EaONU2PrlmL4P44A==",
+      "type": "Package",
+      "files": [
+        "[Content_Types].xml",
+        "_rels/.rels",
+        "ChartControls.nuspec",
+        "lib/net40/ChartControls.dll",
+        "lib/net40/ChartControls.XML",
+        "lib/net40/ChartControls_cn.XML",
+        "lib/net45/ChartControls.dll",
+        "lib/net45/ChartControls.XML",
+        "lib/net45/ChartControls_cn.XML",
+        "lib/portable-win81+wpa81+.NETCore50/ChartControls.dll",
+        "lib/portable-win81+wpa81+.NETCore50/ChartControls.pri",
+        "lib/portable-win81+wpa81+.NETCore50/ChartControls_cn.XML",
+        "package/services/metadata/core-properties/bfa11160b01d46d9b5cf63195db5786a.psmdcp",
+        "README.txt"
+      ]
+    },
     "Microsoft.ApplicationInsights/1.0.0": {
       "sha512": "HZ47/thX57SOuIivSvIbsR6L9CCb/Yt3IyB2i4KHmmNlf3DO+lqFwWIKDdbDNWKX+qh0Rg20/JSMPK0dwUsYYw==",
       "type": "Package",
@@ -14912,6 +14988,7 @@
   },
   "projectFileDependencyGroups": {
     "": [
+      "ChartControls >= 1.3.0",
       "Microsoft.ApplicationInsights >= 1.0.0",
       "Microsoft.ApplicationInsights.PersistenceChannel >= 1.0.0",
       "Microsoft.ApplicationInsights.WindowsApps >= 1.0.0",

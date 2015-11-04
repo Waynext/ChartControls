@@ -19,10 +19,20 @@ Version 1.1.0
   (3) Fix bugs.
   
 Version 1.1.1
+
   (1) Add Project Url into nuegt package(i.e. https://github.com/Waynext/ChartControls)
+  
 Version 1.2.0
+
   (1) Add one day line.
+  
   (2) Fix bugs, chart control can not update when properties change.
+  
+Version 1.3.0
+
+  (1) Support collection change.
+  
+  (2) Fix bugs.
   
 4.INSTALL
 

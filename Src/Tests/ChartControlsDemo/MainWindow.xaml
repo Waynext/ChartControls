@@ -19,6 +19,8 @@
             <MenuItem Header="Comparison" Click="OnViewComparison"/>
             <MenuItem Header="Overlap" Click="OnViewOverlap"/>
             <MenuItem Header="TimeLine" Click="OnViewTimeLine"/>
+            <MenuItem Header="CandleTrading" Click="OnViewCandleTrading"/>
+            <MenuItem Header="TimeTrading" Click="OnViewTimeTrading"/>
         </ContextMenu>
         <ContextMenu x:Key="ActionsMenu">
             <MenuItem Header="None" Click="OnActionsNone"/>
@@ -33,9 +35,9 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="30"/>
-                <RowDefinition Height="130*"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="30"/>
-                <RowDefinition Height="41*"/>
+                <RowDefinition Height="80"/>
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
             <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="ChartControls Demo" FontFamily="Aharoni" FontSize="48" VerticalAlignment="Center" HorizontalAlignment="Center" TextTrimming="WordEllipsis"/>

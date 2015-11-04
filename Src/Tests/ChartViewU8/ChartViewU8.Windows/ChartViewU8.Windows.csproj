@@ -130,8 +130,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="ChartControls, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ChartControls.1.2.0\lib\portable-win81+wpa81\ChartControls.dll</HintPath>
+    <Reference Include="ChartControls, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ChartControls.1.3.0\lib\portable-win81+wpa81+.NETCore50\ChartControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">

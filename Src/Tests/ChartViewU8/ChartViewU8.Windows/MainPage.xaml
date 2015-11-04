@@ -19,6 +19,8 @@
             <MenuFlyoutItem Text="Comparison" Click="OnViewComparison"/>
             <MenuFlyoutItem Text="Overlap" Click="OnViewOverlap"/>
             <MenuFlyoutItem Text="TimeLine" Click="OnViewTimeLine"/>
+            <MenuFlyoutItem Text="CandleTrading" Click="OnViewCandleTrading"/>
+            <MenuFlyoutItem Text="TimeTrading" Click="OnViewTimeTrading"/>
         </MenuFlyout>
         <MenuFlyout x:Key="ActionsMenu">
             <MenuFlyoutItem Text="None" Click="OnActionsNone"/>

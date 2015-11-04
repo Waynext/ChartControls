@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Common;
 using ChartControls.Drawing;
+using System.Windows.Threading;
 
 namespace ChartControlsDemo
 {
@@ -36,6 +37,10 @@ namespace ChartControlsDemo
         private MainViewModel model;
         private DataLoader loader;
         private DataLoader Timeloader;
+
+        private TimeSpan tradingPeriod = TimeSpan.FromSeconds(0.5);
+        private DispatcherTimer tradingTimer;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -180,6 +185,12 @@ namespace ChartControlsDemo
                     price.SetValue(Grid.RowSpanProperty, 1);
                 }
             }
+
+            if(tradingTimer != null)
+            {
+                tradingTimer.Stop();
+                tradingTimer = null;
+            }
         }
 
     
@@ -244,6 +255,20 @@ namespace ChartControlsDemo
             QueryTimeCollection(id3);
         }
 
+        private void OnViewCandleTrading(object sender, RoutedEventArgs e)
+        {
+            model.Reset();
+            AdjustViews(false);
+            QueryCandleTrading(id3);
+        }
+
+        private void OnViewTimeTrading(object sender, RoutedEventArgs e)
+        {
+            model.Reset();
+            AdjustViews(false);
+            QueryTimeTrading(id3);
+        }
+
         private void QueryChartCollection(string id)
         {
             var chartItems = loader.GetChartItems(id);
@@ -273,7 +298,7 @@ namespace ChartControlsDemo
             price.SetMainCollection(collection);
             SetAttritues();
 
-            var maCollections = CreateMVCollections(svItems.Prices);
+            var maCollections = CreateMACollections(svItems.Prices);
             foreach (var maColl in maCollections)
             {
                 price.AddAssistCollection(maColl);
@@ -296,7 +321,7 @@ namespace ChartControlsDemo
                 return;
             }
 
-            var maColls = CreateMVCollections(chartItems.Prices).ToArray();
+            var maColls = CreateMACollections(chartItems.Prices).ToArray();
             IEnumerable<ChartItem>[] cItemsList = new IEnumerable<ChartItem>[maColls.Count() + 1];
             IPen[] pens = new IPen[maColls.Count() + 1];
 
@@ -393,6 +418,185 @@ namespace ChartControlsDemo
             price.ForceDraw();
         }
 
+        private void QueryCandleTrading(string id)
+        {
+            var svItems = loader.GetStockItems(id);
+            if (svItems == null || svItems.Prices == null || svItems.Volumns == null)
+            {
+                Debug.WriteLine("Can not load candle items");
+                return;
+            }
+
+            var collection = CreateCollection(id, svItems.Prices, ChartItemType.Candle,
+                DrawingObjectFactory.CreatePen(model.RaiseBrush, 1), DrawingObjectFactory.CreatePen(model.FallBrush, 1));
+            price.SetMainCollection(collection);
+            SetAttritues();
+
+            var maCollections = CreateMACollections(svItems.Prices);
+            foreach (var maColl in maCollections)
+            {
+                price.AddAssistCollection(maColl);
+            }
+
+            var vCollection = CreateCollection(id, svItems.Volumns, ChartItemType.Volumn,
+                DrawingObjectFactory.CreatePen(model.RaiseBrush, 1), DrawingObjectFactory.CreatePen(model.FallBrush, 1));
+            volumn.SetMainCollection(vCollection);
+            volumn.AddConnection(price);
+
+            price.ForceDraw();
+
+            CandleTrading(id, collection, vCollection, price.AssistCollections, svItems);
+
+
+        }
+
+        private void CandleTrading(string id, ChartItemCollection priceColl, ChartItemCollection volumnColl, IEnumerable<ChartItemCollection> maColls, StockVolumnList svList, int mvStart = 0)
+        {
+            tradingTimer = new DispatcherTimer(DispatcherPriority.Background);
+            bool isStarted = false;
+            int i = 0;
+            tradingTimer.Interval = tradingPeriod;
+            tradingTimer.Tick += (s, e)=>{
+                var tvList = Timeloader.GetStockItems(id);
+
+                if (i == tvList.Prices.Count)
+                {
+                    tradingTimer.Stop();
+                    return;
+                }
+
+                var candle = tvList.Prices[i];
+                var volumn = tvList.Volumns[i];
+                
+                if (!isStarted)
+                {
+                    priceColl.AddLatestChartItem(candle);
+                    volumnColl.AddLatestChartItem(volumn);
+
+                    UpdateMACollections(maColls, svList.Prices, candle, mvStart, isStarted);
+                    isStarted = true;
+                }
+                else
+                {
+                    var lastestCandle = priceColl.Items.Last() as StockItem;
+                    var lastestVolumn = volumnColl.Items.Last() as VolumnItem;
+
+                    candle = MergeChartItem(lastestCandle, candle);
+                    volumn = MergeChartItem(lastestVolumn, volumn);
+                    volumn.IsRaise = candle.Open <= candle.Close;
+
+                    priceColl.UpdateLatestChartItem(candle);
+                    volumnColl.UpdateLatestChartItem(volumn);
+
+                    UpdateMACollections(maColls, svList.Prices, candle, mvStart, isStarted);
+                }
+
+                price.ForceDraw(false, false);
+                i++;
+            };
+
+            tradingTimer.Start();
+        }
+
+        public StockItem MergeChartItem(StockItem source, StockItem target)
+        {
+            source.Date = target.Date;
+            source.Close = target.Close;
+            if (source.High < target.High)
+            {
+                source.High = target.High;
+            }
+            if (source.Low > target.Low)
+            {
+                source.Low = target.Low;
+            }
+
+            return source;
+        }
+
+        public VolumnItem MergeChartItem(VolumnItem source, VolumnItem target)
+        {
+            source.Date = target.Date;
+            source.Volumn += target.Volumn;
+            source.Turnover += target.Turnover;
+            return source;
+        }
+
+        private void QueryTimeTrading(string id)
+        {
+            var cOldItems = loader.GetChartItems(id);
+            if(cOldItems == null || !cOldItems.Any())
+            {
+                Debug.WriteLine("Can not load old candle items");
+                return;
+            }
+
+            var oldItem = cOldItems.Last();
+
+            var collection = CreateCollection(id, null, ChartItemType.Time,
+                DrawingObjectFactory.CreatePen(model.RaiseBrush, 1), null) as SymmetricChartItemCollection;
+            collection.StartDate = oldItem.Date.Date;
+            collection.StartValue = oldItem.Value;
+
+
+            price.SetMainCollection(collection);
+            SetAttritues(false);
+
+            var maColl = CreateCollection(id, null, ChartItemType.Time,
+                DrawingObjectFactory.CreatePen(model.ContrastBrush, 1), null) as SymmetricChartItemCollection;
+            maColl.StartDate = oldItem.Date.Date;
+            maColl.StartValue = oldItem.Value;
+
+            price.AddAssistCollection(maColl);
+
+            var vCollection = CreateCollection(id, null, ChartItemType.TimeVolumn,
+                DrawingObjectFactory.CreatePen(model.RaiseBrush, 1), DrawingObjectFactory.CreatePen(model.FallBrush, 1)) as SymmetricVolumnItemCollection;
+
+            vCollection.StartDate = oldItem.Date.Date;
+
+            volumn.SetMainCollection(vCollection);
+            price.AddConnection(volumn);
+            price.ForceDraw();
+
+            model.Date = oldItem.Date.ToString(dateFormat);
+
+            TimeTrading(id);
+        }
+
+        private void TimeTrading(string id)
+        {
+            var svItems = Timeloader.GetStockItems(id);
+            if (svItems == null || svItems.Prices == null || svItems.Volumns == null)
+            {
+                Debug.WriteLine("Can not load candle items");
+                return;
+            }
+
+            var idAverage = id + "average";
+            var cItems = Timeloader.GetChartItems(idAverage);
+            var maCollection = CreateTimeMACollection(cItems, idAverage);
+            tradingTimer = new DispatcherTimer(DispatcherPriority.Background);
+     
+            int i = 0;
+            tradingTimer.Interval = tradingPeriod;
+            tradingTimer.Tick += (s, e) =>
+            {
+                if(i == svItems.Prices.Count)
+                {
+                    tradingTimer.Stop();
+                    return;
+                }
+                price.MainCollection.AddLatestChartItem(svItems.Prices[i]);
+                price.AssistCollections.First().AddLatestChartItem(cItems[i]);
+                volumn.MainCollection.AddLatestChartItem(svItems.Volumns[i]);
+
+                price.ForceDraw(false, false);
+                i++;
+            };
+
+            tradingTimer.Start();
+        }
+
         private void SetAttritues(bool isReset = true)
         {
             if (isReset)
@@ -460,7 +664,7 @@ namespace ChartControlsDemo
             }
             else if (type == ChartItemType.TimeVolumn)
             {
-                coll = new SymmetricVolumnItemCollection(id, chartItems.OfType<VolumnItem>(), pen1, pen2);
+                coll = new SymmetricVolumnItemCollection(id, chartItems != null ? chartItems.OfType<VolumnItem>() : null, pen1, pen2);
             }
             return coll;
         }
@@ -568,12 +772,18 @@ namespace ChartControlsDemo
             return maResult;
         }
 
+        public double MAOne(int period, List<StockItem> chartItems, double newValue)
+        {
+            var sum = chartItems.Skip(chartItems.Count - period + 1).Take(period - 1).Sum(s => s.Close) + newValue;
+            return sum / period;
+        }
+
         private int mvCount = 3;
         private int[] mvUnits = new int[] { 10, 20, 30, 60, 120, 250 };
         //{ 10, 20, 30, 60, 120, 250};
         private Brush[] mvBrushs = new Brush[] { Brushes.Salmon, Brushes.Purple, Brushes.Orange, Brushes.Salmon, Brushes.Purple, Brushes.Orange };
 
-        public IEnumerable<ChartItemCollection> CreateMVCollections(List<StockItem> chartItems, int mvStart = 0)
+        public IEnumerable<ChartItemCollection> CreateMACollections(List<StockItem> chartItems, int mvStart = 0)
         {
             for (int i = mvStart; i < mvStart + mvCount; i++)
             {
@@ -589,6 +799,25 @@ namespace ChartControlsDemo
                 var id = new CollectionId(maPeriod.ToString());
                 ChartItemCollection collMa = new ChartItemCollection(id, mvItems, DrawingObjectFactory.CreatePen(mvBrushs[i], 1), null, true, false);
                 yield return collMa;
+            }
+        }
+
+        public void UpdateMACollections(IEnumerable<ChartItemCollection> maColls, List<StockItem> chartItems, ChartItem newItem, int mvStart = 0, bool isStarted = false)
+        {
+            for (int i = mvStart; i < mvStart + mvCount; i++)
+            {
+                var maPeriod = mvUnits[i];
+                var maOne = MAOne(maPeriod, chartItems, newItem.Value);
+                ChartItem item = new ChartItem()
+                {
+                    Value = maOne,
+                    Date = newItem.Date
+                };
+
+                if (!isStarted)
+                    maColls.ElementAt(i).AddLatestChartItem(item);
+                else
+                    maColls.ElementAt(i).UpdateLatestChartItem(item);
             }
         }
 

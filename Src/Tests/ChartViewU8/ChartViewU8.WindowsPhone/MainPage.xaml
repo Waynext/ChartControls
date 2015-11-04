@@ -19,6 +19,8 @@
             <MenuFlyoutItem Text="Comparison" Click="OnViewComparison"/>
             <MenuFlyoutItem Text="Overlap" Click="OnViewOverlap"/>
             <MenuFlyoutItem Text="TimeLine" Click="OnViewTimeLine"/>
+            <MenuFlyoutItem Text="CandleTrading" Click="OnViewCandleTrading"/>
+            <MenuFlyoutItem Text="TimeTrading" Click="OnViewTimeTrading"/>
         </MenuFlyout>
         <MenuFlyout x:Key="ActionsMenu">
             <MenuFlyoutItem Text="None" Click="OnActionsNone"/>
@@ -56,7 +58,8 @@
                                     CoordinateType="{Binding CoordinateType, Mode=TwoWay}" CursorLines="{Binding CursorLines, Mode=TwoWay}" CursorLinesThickness="{Binding CursorLinesThickness, Mode=TwoWay}"
                                     CursorLinesDashes="{Binding CursorLinesDashes, Mode=TwoWay}" YScaleLineColor="{Binding ScaleLineColor, Mode=TwoWay}" XScaleLineColor="{Binding ScaleLineColor, Mode=TwoWay}"
                                     YScaleLineThickness="{Binding ScaleLineThickness, Mode=TwoWay}" XScaleLineThickness="{Binding ScaleLineThickness, Mode=TwoWay}" YScaleLineDashes="{Binding ScaleLineDashes, Mode=TwoWay}"
-                                    XScaleLineDashes="{Binding ScaleLineDashes, Mode=TwoWay}" FontFamily="{Binding FontFamily, Mode=TwoWay}" FontSize="{Binding FontSize, Mode=TwoWay}" SelectionBorderColor="{Binding Foreground, Mode=TwoWay}"/>
+                                    XScaleLineDashes="{Binding ScaleLineDashes, Mode=TwoWay}" FontFamily="{Binding FontFamily, Mode=TwoWay}" FontSize="{Binding FontSize, Mode=TwoWay}"
+                                    SelectionBorderColor="{Binding Foreground, Mode=TwoWay}" />
                 <StackPanel Name="volumnTitle" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <TextBlock Text="{Binding Volumn1}" Style="{StaticResource DynamicFont}" Foreground="{Binding VolumnClr1}"/>
                     <TextBlock Text="{Binding Volumn2}" Style="{StaticResource DynamicFont}" Foreground="{Binding VolumnClr2}"/>

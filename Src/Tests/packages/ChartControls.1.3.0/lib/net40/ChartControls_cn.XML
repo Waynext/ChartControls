@@ -252,6 +252,21 @@
             设置固定数目的可见项。
             </summary>
         </member>
+        <member name="P:ChartControls.ChartItemCollection.IsScalesOptimized">
+            <summary>
+            刻度划分是否是取整的。缺省是true，表示是取整的。false，表示是刻度平均分配的。
+            </summary>
+        </member>
+        <member name="P:ChartControls.ChartItemCollection.YColumnCount">
+            <summary>
+            Y轴刻度数量。
+            </summary>
+        </member>
+        <member name="P:ChartControls.ChartItemCollection.XColumnCount">
+            <summary>
+            X轴刻度数量，缺省值是4。
+            </summary>
+        </member>
         <member name="M:ChartControls.ChartItemCollection.GetDate(System.Int32)">
             <summary>
             取得索引位置上的数据项时间
@@ -524,22 +539,12 @@
             取百分比坐标单位值。
             </summary>
         </member>
-        <member name="F:ChartControls.ChartItemCollection.YColumnCount">
-            <summary>
-            Y轴刻度数量。
-            </summary>
-        </member>
         <member name="M:ChartControls.ChartItemCollection.GetYAxisScales(ChartControls.CoordinateType)">
             <summary>
             计算Y轴的刻度列表。
             </summary>
             <param name="coordinateType">坐标类型<see cref="T:ChartControls.CoordinateType"/></param>
             <returns>Y轴的刻度列表。</returns>
-        </member>
-        <member name="F:ChartControls.ChartItemCollection.XColumnCount">
-            <summary>
-            X轴刻度数量，缺省值是4。
-            </summary>
         </member>
         <member name="M:ChartControls.ChartItemCollection.GetXAxisScales">
             <summary>
@@ -651,6 +656,20 @@
             <param name="pen">源。</param>
             <param name="lineCap">线头形状。</param>
             <returns></returns>
+        </member>
+        <member name="M:ChartControls.ChartItemCollection.AddLatestChartItem(ChartControls.ChartItem)">
+            <summary>
+            添加最新数据
+            </summary>
+            <param name="latestItem">数据项</param>
+            <returns>是否添加成功。</returns>
+        </member>
+        <member name="M:ChartControls.ChartItemCollection.UpdateLatestChartItem(ChartControls.ChartItem)">
+            <summary>
+            更新最新数据。
+            </summary>
+            <param name="latestItem">数据项</param>
+            <returns>是否更新成功。</returns>
         </member>
         <member name="T:ChartControls.ChartControl">
              <summary>
@@ -767,11 +786,12 @@
             </summary>
             <param name="graphic"><see cref="T:ChartControls.IExtraDataGraphics"/></param>
         </member>
-        <member name="M:ChartControls.ChartControl.ForceDraw(System.Boolean)">
+        <member name="M:ChartControls.ChartControl.ForceDraw(System.Boolean,System.Boolean)">
             <summary>
             强制重画控件。
             </summary>
             <param name="needResizeLayout">是否需要重新计算大小，缺省值是false，不需要重新计算。</param>
+            <param name="needRemoveCursor">是否需要删除光标线。缺省值是true， 表示需要删除光标线。</param>
         </member>
         <member name="M:ChartControls.ChartControl.StartDrawCustomGraphics(ChartControls.ICustomGraphics)">
             <summary>
@@ -1505,82 +1525,6 @@
             返回最后画的对象
             </summary>
         </member>
-        <member name="T:ChartControls.ICustomGraphics">
-            <summary>
-            自定义图形接口。<see cref="M:ChartControls.ChartControl.StartDrawCustomGraphics(ChartControls.ICustomGraphics)"/>
-            </summary>
-        </member>
-        <member name="P:ChartControls.ICustomGraphics.PointCount">
-            <summary>
-            坐标点的数量。
-            </summary>
-        </member>
-        <member name="P:ChartControls.ICustomGraphics.Points">
-            <summary>
-            坐标点数组。
-            </summary>
-        </member>
-        <member name="P:ChartControls.ICustomGraphics.ValuePoints">
-            <summary>
-            时间和值组合数组。
-            </summary>
-        </member>
-        <member name="M:ChartControls.ICustomGraphics.StartDraw(System.Windows.Point)">
-            <summary>
-            开始绘制第一个点。
-            </summary>
-            <param name="pt">坐标。</param>
-        </member>
-        <member name="M:ChartControls.ICustomGraphics.NextDraw(System.Windows.Point,ChartControls.Drawing.IDrawingContext,System.Boolean)">
-            <summary>
-            绘制下一个点。
-            </summary>
-            <param name="pt">坐标。</param>
-            <param name="dc">绘制上下文。<see cref="T:ChartControls.Drawing.IDrawingContext"/></param>
-            <param name="isFinal">是否是最后一个点。</param>
-            <returns>是否绘制完成。</returns>
-        </member>
-        <member name="M:ChartControls.ICustomGraphics.Draw(ChartControls.Drawing.IDrawingContext)">
-            <summary>
-            绘制整个自定义图形。
-            </summary>
-            <param name="dc">绘制上下文。<see cref="T:ChartControls.Drawing.IDrawingContext"/></param>
-        </member>
-        <member name="T:ChartControls.ValuePoint">
-            <summary>
-            值时间组合，用于坐标点的对应，实现自定义图形的持久化和恢复。
-            </summary>
-        </member>
-        <member name="P:ChartControls.ValuePoint.Value">
-            <summary>
-            值。
-            </summary>
-        </member>
-        <member name="P:ChartControls.ValuePoint.Date">
-            <summary>
-            时间。
-            </summary>
-        </member>
-        <member name="P:ChartControls.ValuePoint.Deviation">
-            <summary>
-            时间轴偏移百分比。
-            </summary>
-        </member>
-        <member name="T:ChartControls.IPoint2ValuePoint">
-            <summary>
-            坐标与时间值组合转化接口。
-            </summary>
-        </member>
-        <member name="M:ChartControls.IPoint2ValuePoint.ConvertFromPoint(System.Windows.Point)">
-            <summary>
-            坐标转值时间组合。
-            </summary>
-        </member>
-        <member name="M:ChartControls.IPoint2ValuePoint.ConvertFromValuePoint(ChartControls.ValuePoint)">
-            <summary>
-            值时间组合转坐标。
-            </summary>
-        </member>
         <member name="T:ChartControls.IExtraDataGraphics">
             <summary>
             额外数据图形接口。<see cref="M:ChartControls.ChartControl.AddExtraDataGraphic(ChartControls.IExtraDataGraphics)"/>
@@ -1835,6 +1779,98 @@
         <member name="M:ChartControls.PointSnapper.RoundPoint(System.Windows.Point)">
             <summary>
             取整坐标点。
+            </summary>
+        </member>
+        <member name="T:ChartControls.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:ChartControls.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:ChartControls.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:ChartControls.ICustomGraphics">
+            <summary>
+            自定义图形接口。<see cref="M:ChartControls.ChartControl.StartDrawCustomGraphics(ChartControls.ICustomGraphics)"/>
+            </summary>
+        </member>
+        <member name="P:ChartControls.ICustomGraphics.PointCount">
+            <summary>
+            坐标点的数量。
+            </summary>
+        </member>
+        <member name="P:ChartControls.ICustomGraphics.Points">
+            <summary>
+            坐标点数组。
+            </summary>
+        </member>
+        <member name="P:ChartControls.ICustomGraphics.ValuePoints">
+            <summary>
+            时间和值组合数组。
+            </summary>
+        </member>
+        <member name="M:ChartControls.ICustomGraphics.StartDraw(System.Windows.Point)">
+            <summary>
+            开始绘制第一个点。
+            </summary>
+            <param name="pt">坐标。</param>
+        </member>
+        <member name="M:ChartControls.ICustomGraphics.NextDraw(System.Windows.Point,ChartControls.Drawing.IDrawingContext,System.Boolean)">
+            <summary>
+            绘制下一个点。
+            </summary>
+            <param name="pt">坐标。</param>
+            <param name="dc">绘制上下文。<see cref="T:ChartControls.Drawing.IDrawingContext"/></param>
+            <param name="isFinal">是否是最后一个点。</param>
+            <returns>是否绘制完成。</returns>
+        </member>
+        <member name="M:ChartControls.ICustomGraphics.Draw(ChartControls.Drawing.IDrawingContext)">
+            <summary>
+            绘制整个自定义图形。
+            </summary>
+            <param name="dc">绘制上下文。<see cref="T:ChartControls.Drawing.IDrawingContext"/></param>
+        </member>
+        <member name="T:ChartControls.ValuePoint">
+            <summary>
+            值时间组合，用于坐标点的对应，实现自定义图形的持久化和恢复。
+            </summary>
+        </member>
+        <member name="P:ChartControls.ValuePoint.Value">
+            <summary>
+            值。
+            </summary>
+        </member>
+        <member name="P:ChartControls.ValuePoint.Date">
+            <summary>
+            时间。
+            </summary>
+        </member>
+        <member name="P:ChartControls.ValuePoint.Deviation">
+            <summary>
+            时间轴偏移百分比。
+            </summary>
+        </member>
+        <member name="T:ChartControls.IPoint2ValuePoint">
+            <summary>
+            坐标与时间值组合转化接口。
+            </summary>
+        </member>
+        <member name="M:ChartControls.IPoint2ValuePoint.ConvertFromPoint(System.Windows.Point)">
+            <summary>
+            坐标转值时间组合。
+            </summary>
+        </member>
+        <member name="M:ChartControls.IPoint2ValuePoint.ConvertFromValuePoint(ChartControls.ValuePoint)">
+            <summary>
+            值时间组合转坐标。
             </summary>
         </member>
         <member name="T:ChartControls.ActionResult">
@@ -2149,6 +2185,121 @@
             <see cref="M:ChartControls.ChartItemCollection.ConvertFrom(ChartControls.QueryItem)"/>
             </summary>
         </member>
+        <member name="T:ChartControls.SymmetricChartItemCollection">
+            <summary>
+            分时图数据集合
+            </summary>
+        </member>
+        <member name="M:ChartControls.SymmetricChartItemCollection.#ctor(ChartControls.CollectionId,System.Collections.Generic.IEnumerable{ChartControls.ChartItem},ChartControls.Drawing.IPen,System.Windows.Media.Brush,System.Int32)">
+            <summary>
+            构造函数。
+            </summary>
+            <param name="id">集合ID。</param>
+            <param name="items">数据集合列表。</param>
+            <param name="pen">画笔</param>
+            <param name="fill">填充颜色，暂时不用</param>
+            <param name="fixedItemCount">数据项的个数，分时图一般241个。</param>
+        </member>
+        <member name="P:ChartControls.SymmetricChartItemCollection.StartValue">
+            <summary>
+            上一个交易日的收盘价。
+            </summary>
+        </member>
+        <member name="P:ChartControls.SymmetricChartItemCollection.StartDate">
+            <summary>
+             开始时间。
+            </summary>
+        </member>
+        <member name="P:ChartControls.SymmetricChartItemCollection.InitMax">
+            <summary>
+            初始最大值。
+            </summary>
+        </member>
+        <member name="M:ChartControls.SymmetricChartItemCollection.GetMaxValue">
+            <summary>
+            <see cref="M:ChartControls.ChartItemCollection.GetMaxValue"/>
+            </summary>
+        </member>
+        <member name="M:ChartControls.SymmetricChartItemCollection.GetMinValue">
+            <summary>
+            <see cref="M:ChartControls.ChartItemCollection.GetMinValue"/>
+            </summary>
+        </member>
+        <member name="M:ChartControls.SymmetricChartItemCollection.GetYAxisScales(ChartControls.CoordinateType)">
+            <summary>
+            <see cref="M:ChartControls.ChartItemCollection.GetYAxisScales(ChartControls.CoordinateType)"/>
+            </summary>
+        </member>
+        <member name="M:ChartControls.SymmetricChartItemCollection.GetXAxisScales">
+            <summary>
+            <see cref="M:ChartControls.ChartItemCollection.GetXAxisScales"/>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ChartControls.SymmetricChartItemCollection.CopyFromMaster">
+            <summary>
+            <see cref="M:ChartControls.ChartItemCollection.CopyFromMaster"/>
+            </summary>
+        </member>
+        <member name="T:ChartControls.SymmetricMultipleChartItemCollection">
+            <summary>
+            分时图多数据集合。
+            </summary>
+        </member>
+        <member name="M:ChartControls.SymmetricMultipleChartItemCollection.#ctor(ChartControls.CollectionId,System.Collections.Generic.IEnumerable{ChartControls.MultipleChartItem},ChartControls.Drawing.IPen[],System.Int32)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="id">集合ID。</param>
+            <param name="items">数据列表。</param>
+            <param name="pens">画笔数组。</param>
+            <param name="fixedItemCount">数据项的个数，分时图一般241个。</param>
+        </member>
+        <member name="P:ChartControls.SymmetricMultipleChartItemCollection.StartValue">
+            <summary>
+            上一个交易日的收盘价。
+            </summary>
+        </member>
+        <member name="P:ChartControls.SymmetricMultipleChartItemCollection.StartDate">
+            <summary>
+             开始时间。
+            </summary>
+        </member>
+        <member name="P:ChartControls.SymmetricMultipleChartItemCollection.InitMax">
+            <summary>
+            初始最大值。
+            </summary>
+        </member>
+        <member name="M:ChartControls.SymmetricMultipleChartItemCollection.GetMaxValue">
+            <summary>
+            <see cref="M:ChartControls.ChartItemCollection.GetMaxValue"/>
+            </summary>
+        </member>
+        <member name="M:ChartControls.SymmetricMultipleChartItemCollection.GetMinValue">
+            <summary>
+            <see cref="M:ChartControls.ChartItemCollection.GetMinValue"/>
+            </summary>
+        </member>
+        <member name="M:ChartControls.SymmetricMultipleChartItemCollection.GetYAxisScales(ChartControls.CoordinateType)">
+            <summary>
+            <see cref="M:ChartControls.ChartItemCollection.GetYAxisScales(ChartControls.CoordinateType)"/>
+            </summary>
+        </member>
+        <member name="M:ChartControls.SymmetricMultipleChartItemCollection.GetXAxisScales">
+            <summary>
+            <see cref="M:ChartControls.ChartItemCollection.GetXAxisScales"/>
+            </summary>
+        </member>
+        <member name="M:ChartControls.SymmetricMultipleChartItemCollection.CopyFromMaster">
+            <summary>
+            <see cref="M:ChartControls.ChartItemCollection.CopyFromMaster"/>
+            </summary>
+        </member>
+        <member name="T:ChartControls.SymmetricVolumnItemCollection">
+            <summary>
+            分时成交量数据集合。
+            </summary>
+        </member>
         <member name="M:ChartControls.SymmetricVolumnItemCollection.#ctor(ChartControls.CollectionId,System.Collections.Generic.IEnumerable{ChartControls.VolumnItem},ChartControls.Drawing.IPen,ChartControls.Drawing.IPen,System.Int32)">
             <summary>
             构造函数。
@@ -2158,6 +2309,24 @@
             <param name="penRaise">上升画笔。<see cref="M:ChartControls.Drawing.DrawingObjectFactory.CreatePen(System.Windows.Media.Brush,System.Double)"></see></param>
             <param name="penFall">下降画笔。<see cref="M:ChartControls.Drawing.DrawingObjectFactory.CreatePen(System.Windows.Media.Brush,System.Double)"></see></param>
             <param name="fixedItemCount">设置固定可见项的数目, 缺省值为-1，表示可见项数目不固定。</param>
+        </member>
+        <member name="P:ChartControls.SymmetricVolumnItemCollection.StartDate">
+            <summary>
+             开始时间。
+            </summary>
+        </member>
+        <member name="M:ChartControls.SymmetricVolumnItemCollection.GetXAxisScales">
+            <summary>
+            <see cref="M:ChartControls.ChartItemCollection.GetXAxisScales"/>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ChartControls.SymmetricVolumnItemCollection.AddLatestChartItem(ChartControls.ChartItem)">
+            <summary>
+            添加最新数据
+            </summary>
+            <param name="latestItem">数据项</param>
+            <returns>是否添加成功。</returns>
         </member>
         <member name="T:ChartControls.VolumnItemStyle">
             <summary>
