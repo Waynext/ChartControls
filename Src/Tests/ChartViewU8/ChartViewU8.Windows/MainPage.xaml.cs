@@ -587,11 +587,11 @@ namespace ChartViewU8
             }
             else if (type == ChartItemType.Time)
             {
-                coll = new SymmetricChartItemCollection(id, chartItems, pen1, null);
+                coll = new SymmetricChartItemCollection(id, chartItems, pen1, null, SymmetricCommonSettings.CNSettings2);
             }
             else if (type == ChartItemType.TimeVolumn)
             {
-                coll = new SymmetricVolumnItemCollection(id, chartItems != null ? chartItems.OfType<VolumnItem>() : null, pen1, pen2);
+                coll = new SymmetricVolumnItemCollection(id, chartItems != null ? chartItems.OfType<VolumnItem>() : null, pen1, pen2, SymmetricCommonSettings.CNSettings2);
             }
             return coll;
         }

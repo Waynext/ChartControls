@@ -34,6 +34,14 @@ Version 1.3.0
   
   (2) Fix bugs.
   
+ Version 1.3.1
+ 
+  (1) Add instructions.
+  
+  (2) Adjust interface of Symmetric collection.
+  
+  (3) Fix bugs.
+  
 4.INSTALL
 
    In Visual Studio, search 'ChartControls' or 'Stock' in Nuget, then find ChartControls in result list and install.
