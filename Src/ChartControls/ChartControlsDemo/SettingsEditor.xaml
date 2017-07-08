@@ -1,0 +1,173 @@
+﻿<UserControl x:Class="ChartControlsDemo.SettingsEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChartControlsDemo"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:control="clr-namespace:ChartControls;assembly=ChartControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             x:Name="settingsEditor">
+    <UserControl.Resources>
+        <x:Array x:Key="widthArray" Type="system:Int32">
+            <system:Int32>0</system:Int32>
+            <system:Int32>1</system:Int32>
+            <system:Int32>2</system:Int32>
+            <system:Int32>3</system:Int32>
+            <system:Int32>4</system:Int32>
+            <system:Int32>5</system:Int32>
+        </x:Array>
+        <x:Array x:Key="brushes" Type="system:String">
+            <system:String>Red</system:String>
+            <system:String>Green</system:String>
+            <system:String>White</system:String>
+            <system:String>Blue</system:String>
+            <system:String>Orange</system:String>
+            <system:String>Purple</system:String>
+            <system:String>Black</system:String>
+            <system:String>Gray</system:String>
+        </x:Array>
+        <x:Array x:Key="yScaleDocks" Type="control:YScaleDock">
+            <control:YScaleDock>Left</control:YScaleDock>
+            <control:YScaleDock>Right</control:YScaleDock>
+            <control:YScaleDock>InnerLeft</control:YScaleDock>
+            <control:YScaleDock>InnerRight</control:YScaleDock>
+            <control:YScaleDock>None</control:YScaleDock>
+        </x:Array>
+        <x:Array x:Key="xScaleDocks" Type="control:XScaleDock">
+            <control:XScaleDock>None</control:XScaleDock>
+            <control:XScaleDock>Bottom</control:XScaleDock>
+
+        </x:Array>
+        <x:Array x:Key="bgBrushes" Type="system:String">
+            <system:String>White</system:String>
+            <system:String>Black</system:String>
+        </x:Array>
+        <x:Array x:Key="dockWidthArray" Type="system:Int32">
+            <system:Int32>15</system:Int32>
+            <system:Int32>20</system:Int32>
+            <system:Int32>30</system:Int32>
+            <system:Int32>40</system:Int32>
+            <system:Int32>50</system:Int32>
+            <system:Int32>60</system:Int32>
+            <system:Int32>80</system:Int32>
+            <system:Int32>100</system:Int32>
+        </x:Array>
+        <x:Array x:Key="coordinateTypes" Type="control:CoordinateType">
+            <control:CoordinateType>Linear</control:CoordinateType>
+            <control:CoordinateType>Log10</control:CoordinateType>
+            <control:CoordinateType>Percentage</control:CoordinateType>
+        </x:Array>
+        <x:Array x:Key="dashArray" Type="system:String">
+            <system:String>1 2</system:String>
+            <system:String>2 2</system:String>
+            <system:String>2 4</system:String>
+            <system:String>4 4</system:String>
+        </x:Array>
+        <x:Array x:Key="fontNames" Type="system:String">
+            <system:String>Arial</system:String>
+            <system:String>sans-serif</system:String>
+            <system:String>Comic Sans MS</system:String>
+            <system:String>Courier New</system:String>
+            <system:String>Georgia</system:String>
+            <system:String>Lucida Console</system:String>
+        </x:Array>
+        <x:Array x:Key="fontSizes" Type="system:Int32">
+            <system:Int32>6</system:Int32>
+            <system:Int32>8</system:Int32>
+            <system:Int32>10</system:Int32>
+            <system:Int32>12</system:Int32>
+            <system:Int32>14</system:Int32>
+            <system:Int32>16</system:Int32>
+            <system:Int32>18</system:Int32>
+            <system:Int32>20</system:Int32>
+            <system:Int32>30</system:Int32>
+        </x:Array>
+    </UserControl.Resources>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid Name="Header">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14.667" FontWeight="Bold">Settings</TextBlock>
+        </Grid>
+        <ScrollViewer Name="Body" Grid.Row="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Label Content="Border" VerticalAlignment="Center" />
+                <ComboBox ItemsSource="{StaticResource widthArray}" Grid.Column="1" VerticalAlignment="Center" SelectedItem="{Binding ElementName=settingsEditor, Path=BorderThickness}"/>
+                <Label Content="BorderColor" VerticalAlignment="Center" Grid.Row="1"/>
+                <ComboBox ItemsSource="{StaticResource brushes}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" SelectedItem="{Binding ElementName=settingsEditor, Path=Border}"/>
+                <Label Content="YScaleDock" VerticalAlignment="Center" Grid.Row="2"/>
+                <ComboBox ItemsSource="{StaticResource yScaleDocks}" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" SelectedItem="{Binding ElementName=settingsEditor, Path=YScaleDock}"/>
+                <Label Content="Background" VerticalAlignment="Center" Grid.Row="3"/>
+                <ComboBox ItemsSource="{StaticResource bgBrushes}" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" SelectedItem="{Binding ElementName=settingsEditor, Path=ControlBackground}"/>
+                <Label Content="XScaleDock" VerticalAlignment="Center" Grid.Row="4"/>
+                <ComboBox ItemsSource="{StaticResource xScaleDocks}" Grid.Column="2" Grid.Row="4" VerticalAlignment="Center" SelectedItem="{Binding ElementName=settingsEditor, Path=XScaleDock}"/>
+                <Label Content="YScaleWidth" VerticalAlignment="Center" Grid.Row="5"/>
+                <ComboBox ItemsSource="{StaticResource dockWidthArray}" Grid.Column="2" Grid.Row="5" VerticalAlignment="Center" SelectedItem="{Binding ElementName=settingsEditor, Path=YScaleWidth}"/>
+                <Label Content="XScaleHeight" VerticalAlignment="Center" Grid.Row="6"/>
+                <ComboBox ItemsSource="{StaticResource dockWidthArray}" Grid.Column="2" Grid.Row="6" VerticalAlignment="Center" SelectedItem="{Binding ElementName=settingsEditor, Path=XScaleHeight}"/>
+                <Label Content="CoordinateType" VerticalAlignment="Center" Grid.Row="7"/>
+                <ComboBox ItemsSource="{StaticResource coordinateTypes}" Grid.Column="2" Grid.Row="7" VerticalAlignment="Center" SelectedItem="{Binding ElementName=settingsEditor, Path=CoordinateType}"/>
+                <Label Content="CursorLines" VerticalAlignment="Center" Grid.Row="8"/>
+                <ComboBox ItemsSource="{StaticResource brushes}" Grid.Column="2" Grid.Row="8" VerticalAlignment="Center" SelectedItem="{Binding ElementName=settingsEditor, Path=CursorLines}"/>
+                <Label Content="CursorLinesThickness" VerticalAlignment="Center" Grid.Row="9"/>
+                <ComboBox ItemsSource="{StaticResource widthArray}" Grid.Column="2" Grid.Row="9" VerticalAlignment="Center" SelectedItem="{Binding ElementName=settingsEditor, Path=CursorLinesThickness}"/>
+                <Label Content="CursorLinesDashes" VerticalAlignment="Center" Grid.Row="10"/>
+                <ComboBox ItemsSource="{StaticResource dashArray}" Grid.Column="2" Grid.Row="10" VerticalAlignment="Center" SelectedItem="{Binding ElementName=settingsEditor, Path=CursorLinesDashes}"/>
+                <Label Content="ScaleLineColor" VerticalAlignment="Center" Grid.Row="11"/>
+                <ComboBox ItemsSource="{StaticResource brushes}" Grid.Column="2" Grid.Row="11" VerticalAlignment="Center" SelectedItem="{Binding ElementName=settingsEditor, Path=ScaleLineColor}"/>
+                <Label Content="ScaleLineThickness" VerticalAlignment="Center" Grid.Row="12"/>
+                <ComboBox ItemsSource="{StaticResource widthArray}" Grid.Column="2" Grid.Row="12" VerticalAlignment="Center" SelectedItem="{Binding ElementName=settingsEditor, Path=ScaleLineThickness}"/>
+                <Label Content="ScaleLineDashes" VerticalAlignment="Center" Grid.Row="13"/>
+                <ComboBox ItemsSource="{StaticResource dashArray}" Grid.Column="2" Grid.Row="13" VerticalAlignment="Center" SelectedItem="{Binding ElementName=settingsEditor, Path=ScaleLineDashes}"/>
+                <Label Content="FontFamily" VerticalAlignment="Center" Grid.Row="14"/>
+                <ComboBox ItemsSource="{StaticResource fontNames}" Grid.Column="2" Grid.Row="14" VerticalAlignment="Center" SelectedItem="{Binding ElementName=settingsEditor, Path=FontFamily}"/>
+                <Label Content="FontSize" VerticalAlignment="Center" Grid.Row="15"/>
+                <ComboBox ItemsSource="{StaticResource fontSizes}" Grid.Column="2" Grid.Row="15" VerticalAlignment="Center" SelectedItem="{Binding ElementName=settingsEditor, Path=FontSize}"/>
+                <Label Content="IsScalesOptimized" VerticalAlignment="Center" Grid.Row="16"/>
+                <CheckBox Grid.Column="2" Grid.Row="16" VerticalAlignment="Center" IsChecked="{Binding ElementName=settingsEditor, Path=IsScalesOptimized}"/>
+                <Label Content="YColumnCount" VerticalAlignment="Center" Grid.Row="17"/>
+                <ComboBox ItemsSource="{StaticResource widthArray}" Grid.Column="2" Grid.Row="17" VerticalAlignment="Center" SelectedItem="{Binding ElementName=settingsEditor, Path=YColumnCount}"/>
+                <Label Content="XColumnCount" VerticalAlignment="Center" Grid.Row="18"/>
+                <ComboBox ItemsSource="{StaticResource widthArray}" Grid.Column="2" Grid.Row="18" VerticalAlignment="Center" SelectedItem="{Binding ElementName=settingsEditor, Path=XColumnCount}"/>
+            </Grid>
+        </ScrollViewer>
+        <Grid Name="Footer" Grid.Row="2">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="Ok" Width="60" Margin="0,0,5,0" Click="OnClickOk" />
+                <Button Content="Cancel" Width="60" Click="OnClickCancel" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

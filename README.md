@@ -34,13 +34,16 @@ Version 1.3.0
   
   (2) Fix bugs.
   
- Version 1.3.1
+Version 1.3.1
  
   (1) Add instructions.
   
   (2) Adjust interface of Symmetric collection.
   
   (3) Fix bugs.
+Version 1.3.3
+  
+  (1) Fix a bug that one chart is not in sync with other chart.
   
 4.INSTALL
 

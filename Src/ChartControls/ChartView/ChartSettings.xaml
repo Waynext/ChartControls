@@ -1,0 +1,20 @@
+﻿<Window x:Class="ChartView.ChartSettings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Settings" Height="300" Width="300" WindowStartupLocation="CenterOwner">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60*"/>
+            <ColumnDefinition Width="120*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="194*"/>
+        </Grid.RowDefinitions>
+        <Label Content="Coordinate" VerticalAlignment="Center"/>
+        <ComboBox Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" ItemsSource="{Binding CoordinateTypes}" SelectedItem="{Binding CoordinateType}"/>
+        <Label Content="YDock" VerticalAlignment="Center" Grid.Row="1" />
+        <ComboBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" ItemsSource="{Binding YDocks}" SelectedItem="{Binding YDock}"/>
+    </Grid>
+</Window>

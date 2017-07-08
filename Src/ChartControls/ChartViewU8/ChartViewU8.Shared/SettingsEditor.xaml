@@ -1,0 +1,71 @@
+﻿<UserControl x:Name="settingsEditor"
+    x:Class="ChartViewU8.SettingsEditor"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ChartViewU8"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:control="using:ChartControls"
+    mc:Ignorable="d"
+    d:DesignHeight="500"
+    d:DesignWidth="400">
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Grid Name="Header">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14.667" FontWeight="Bold">Settings</TextBlock>
+        </Grid>
+        <ScrollViewer Name="Body" Grid.Row="1">
+            <Grid HorizontalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Header="BorderThickness" ItemsSource="{Binding WidthArray}" VerticalAlignment="Center" SelectedItem="{Binding BorderThickness1, ElementName=settingsEditor, Mode=TwoWay}" />
+                <ComboBox Header="BorderColor" ItemsSource="{Binding Brushes}" Grid.Row="1" VerticalAlignment="Center" SelectedItem="{Binding Border, ElementName=settingsEditor, Mode=TwoWay}"/>
+                <ComboBox Header="YScaleDock" ItemsSource="{Binding YScaleDocks}" Grid.Row="2" VerticalAlignment="Center" SelectedItem="{Binding YScaleDock, ElementName=settingsEditor, Mode=TwoWay}"/>
+                <ComboBox Header="Background" ItemsSource="{Binding BgBrushes}" Grid.Row="3" VerticalAlignment="Center" SelectedItem="{Binding ControlBackground, ElementName=settingsEditor, Mode=TwoWay}"/>
+                <ComboBox Header="XScaleDock" ItemsSource="{Binding XScaleDocks}" Grid.Row="4" VerticalAlignment="Center" SelectedItem="{Binding XScaleDock, ElementName=settingsEditor, Mode=TwoWay}"/>
+                <ComboBox Header="YScaleWidth" ItemsSource="{Binding DockWidthArray}" Grid.Row="5" VerticalAlignment="Center" SelectedItem="{Binding YScaleWidth, ElementName=settingsEditor, Mode=TwoWay}"/>
+                <ComboBox Header="XScaleHeight" ItemsSource="{Binding DockWidthArray}" Grid.Row="6" VerticalAlignment="Center" SelectedItem="{Binding XScaleHeight, ElementName=settingsEditor, Mode=TwoWay}"/>
+                <ComboBox Header="CoordinateType" ItemsSource="{Binding CoordinateTypes}" Grid.Row="7" VerticalAlignment="Center" SelectedItem="{Binding CoordinateType, ElementName=settingsEditor, Mode=TwoWay}"/>
+                <ComboBox Header="CursorLines" ItemsSource="{Binding Brushes}" Grid.Row="8" VerticalAlignment="Center" SelectedItem="{Binding CursorLines, ElementName=settingsEditor, Mode=TwoWay}"/>
+                <ComboBox Header="CursorLinesThickness" ItemsSource="{Binding WidthArray}" Grid.Row="9" VerticalAlignment="Center" SelectedItem="{Binding CursorLinesThickness, ElementName=settingsEditor, Mode=TwoWay}"/>
+                <ComboBox Header="CursorLinesDashes" ItemsSource="{Binding DashArray}" Grid.Row="10" VerticalAlignment="Center" SelectedItem="{Binding CursorLinesDashes, ElementName=settingsEditor, Mode=TwoWay}"/>
+                <ComboBox Header="ScaleLineColor" ItemsSource="{Binding Brushes}" Grid.Row="11" VerticalAlignment="Center" SelectedItem="{Binding ScaleLineColor, ElementName=settingsEditor, Mode=TwoWay}"/>
+                <ComboBox Header="ScaleLineThickness" ItemsSource="{Binding WidthArray}" Grid.Row="12" VerticalAlignment="Center" SelectedItem="{Binding ScaleLineThickness, ElementName=settingsEditor, Mode=TwoWay}"/>
+                <ComboBox Header="ScaleLineDashes" ItemsSource="{Binding DashArray}" Grid.Row="13" VerticalAlignment="Center" SelectedItem="{Binding ScaleLineDashes, ElementName=settingsEditor, Mode=TwoWay}"/>
+                <ComboBox Header="FontFamily" ItemsSource="{Binding FontNames}" Grid.Row="14" VerticalAlignment="Center" SelectedItem="{Binding FontFamily, ElementName=settingsEditor, Mode=TwoWay}"/>
+                <ComboBox Header="FontSize" ItemsSource="{Binding FontSizes}" Grid.Row="15" VerticalAlignment="Center" SelectedItem="{Binding FontSize, ElementName=settingsEditor, Mode=TwoWay}"/>
+            </Grid>
+        </ScrollViewer>
+        <Grid Name="Footer" Grid.Row="2">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="Ok" Width="100" Margin="0,0,5,0" Click="OnClickOk" />
+                <Button Content="Cancel" Width="100" Click="OnClickCancel" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,64 @@
+﻿<Window x:Class="ChartView.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="328" Width="460"
+        xmlns:local="clr-namespace:ChartControls;assembly=ChartControls" Loaded="OnLoaded" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <local:MeasureGraphics x:Key="Measure"></local:MeasureGraphics>
+        <x:Array x:Key="ExtraDataGraphics" Type="local:IExtraDataGraphics">
+            <local:XRHistoryGraphics></local:XRHistoryGraphics>
+        </x:Array>
+    </Window.Resources>
+    <Window.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="Haha"></MenuItem>
+        </ContextMenu>
+    </Window.ContextMenu>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu IsMainMenu="True" Grid.ColumnSpan="2">
+            <MenuItem Header="_Draw">
+                <MenuItem Header="Line" Click="OnDrawLine" IsCheckable="False"/>
+                <MenuItem Header="ParallelLine" Click="OnDrawParallelLine" IsCheckable="False"/>
+                <MenuItem x:Name="deleteGraphic" Header="Delete" Click="OnDelete" IsCheckable="True"/>
+            </MenuItem>
+        </Menu>
+        <Grid Grid.Row="1" Grid.Column="1" Name="grid1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="32"/>
+            </Grid.RowDefinitions>
+            <local:ChartControl Name="price" Background="White" CursorLines="Gray" CursorMoved="price_CursorMoved" Grid.Row="1" MeasureGraphics="{DynamicResource Measure}" ExtraDataGraphics="{StaticResource ExtraDataGraphics}" 
+                                SelectionBorderDashes="4,4" PointerStartAction="Measure" YScaleWidth="25" XColumnCount="1" DataQueried="price_DataQueried">
+            </local:ChartControl>
+            <local:ChartControl Name="volumn" Background="White" CursorLines="Gray" CursorMoved="volumn_CursorMoved" Grid.Row="2" YScaleFormat="N0" YScaleWidth="25" XScaleLineThickness="0" YScaleLineThickness="0"
+                                 XColumnCount="1" DataQueried="volumn_DataQueried"/>
+            <TextBlock Name="priceOutput" Grid.Row="3" />
+            <TextBlock Name="volumnOutput" Grid.Row="4"/>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Id" VerticalAlignment="Center" HorizontalAlignment="Center" Width="40" />
+                <TextBox Width="120" x:Name="Id" VerticalAlignment="Center" Text="{Binding ShareId, Mode=TwoWay}"/>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="0,0,5,0">
+                    <RadioButton Content="SH" IsChecked="{Binding IsSH, Mode=TwoWay}"/>
+                    <RadioButton Content="SZ" IsChecked="{Binding IsSZ, Mode=TwoWay}"/>
+                </StackPanel>
+                <CheckBox IsChecked="{Binding IsTime}" Content="Time" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <Button Content="Query" Width="69" Click="OnClickQuery" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <Button Content="Settings" Width="69" Click="OnClickSettings" VerticalAlignment="Center"/>
+                
+            </StackPanel>
+            
+            <GridSplitter Height="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"  />
+        </Grid>
+        <!--GridSplitter Width="2" Grid.Row="1"/-->
+    </Grid>
+</Window>

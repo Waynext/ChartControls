@@ -1,0 +1,384 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--------------------------------------------------------------------------->  
+<!--                           INTRODUCTION                                
+
+ The Code Project article submission template (HTML version)
+
+Using this template will help us post your article sooner. To use, just 
+follow the 3 easy steps below:
+ 
+     1. Fill in the article description details
+     2. Add links to your images and downloads
+     3. Include the main article text
+
+That's all there is to it! All formatting will be done by our submission
+scripts and style sheets. 
+
+-->  
+<!--------------------------------------------------------------------------->  
+<!--                        IGNORE THIS SECTION                            -->
+<html>
+<head>
+<title>The Code Project</title>
+<Style>
+BODY, P, TD { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10pt }
+H2,H3,H4,H5 { color: #ff9900; font-weight: bold; }
+H2 { font-size: 13pt; }
+H3 { font-size: 12pt; }
+H4 { font-size: 10pt; color: black; }
+PRE { BACKGROUND-COLOR: #FBEDBB; FONT-FAMILY: "Courier New", Courier, mono; WHITE-SPACE: pre; }
+CODE { COLOR: #990000; FONT-FAMILY: "Courier New", Courier, mono; }
+</style>
+<link rel="stylesheet" type="text/css" href="http://www.codeproject.com/App_Themes/Std/CodeProject.css">
+</head>
+<body bgcolor="#FFFFFF" color=#000000>
+<!--------------------------------------------------------------------------->  
+
+
+<!-------------------------------     STEP 1      --------------------------->
+<!--  Fill in the details (CodeProject will reformat this section for you) -->
+
+<pre>
+Title:       Display stock chart by ChartControls
+Author:      waynext
+Email:       guxiaozhu1@163.com
+Language:    C# 3.0
+Platform:    Windows
+Technology:  WPF
+Level:       Intermediate
+Description: This article describes how to display stock chart by using ChartControls.
+Section      Desktop Development
+SubSection   Miscellaneous
+License:     MIT
+</pre>
+
+<!-------------------------------     STEP 2      --------------------------->
+<!--  Include download and sample image information.                       --> 
+
+<ul class=download>
+<li><a href="HowToUseChartControls_src.zip">Download source - 54 Kb</a></li>
+</ul>
+
+<!-------------------------------     STEP 3      --------------------------->
+
+<!--  Add the article text. Please use simple formatting (<h2>, <p> etc)   -->
+
+<h2>Introduction</h2>
+
+<p>ChartControls is used to display stock price chart, like candle sticks chart. With ChartControls you can display stock chart very easily.</p>
+
+<h2>Using the code</h2>
+
+<h4>Download ChartControls package</h4>
+<p>1.Open Visual Studio(take Visual Studio 2012 as an example).</p>
+<p>2.Search "ChartControls" or "Stock" in Manager Nuget Package view.</p>
+<p>3.Find ChartControls control, then download and install it.</p>
+<p><img src="image4.jpg" alt="Price curve"></p>
+
+<h4>Display a price chart</h4>
+<p>1.Use Visual Studio 2012 to create a WPF project.</p>
+<p>2.Download and install ChartControls through Manager Nuget Package.</p>
+<p>3.Edit MainWindow.xaml<p>
+<p>First, you need to add namespace reference into xaml.</p>
+<pre>xmlns:local="clr-namespace:ChartControls;assembly=ChartControls"</pre>
+
+<p>Second, you need to add control tag.</p>
+<pre>&lt;local:ChartControl Name="priceControl" Margin="0,5,0,0"&gt;&lt;/local:ChartControl&gt;</pre>
+
+<p>All code of MainWindow.xaml</p>
+<pre>
+&lt;Window x:Class="ChartView.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        <strong>xmlns:local="clr-namespace:ChartControls;assembly=ChartControls"</strong>
+        Title="How to use ChartControls" Height="350" Width="525"&gt;
+    &lt;Grid&gt;
+        &lt;Grid.RowDefinitions&gt;
+            &lt;RowDefinition Height="*"/&gt;
+            &lt;RowDefinition Height="80"/&gt;
+        &lt;/Grid.RowDefinitions&gt;
+
+        <strong>&lt;local:ChartControl Name="priceControl" Margin="0,5,0,0"&gt;&lt;/local:ChartControl&gt;</strong>
+    &lt;/Grid&gt;
+&lt;/Window&gt;
+</pre>
+
+<p>4.Edit MainWindow.xaml.cs<p>
+<p>First, add namespace reference.</p>
+<pre>using ChartControls;
+using ChartControls.Drawing;</pre>
+<p>Second, load stock data.</p>
+<pre>string id = "000001";
+//Load chart items
+IList<ChartItem> chartItems = loader.GetChartItems(id);</pre>
+<p>Third, create collection and collection id.</p>
+<pre>//Create collection id
+CollectionId collId = new CollectionId(id);
+
+//Create pen
+IPen pen = DrawingObjectFactory.CreatePen(Brushes.Black, 1);
+//Create chart item collection
+ChartItemCollection collection = new ChartItemCollection(collId, chartItems, pen, null);</pre>
+<p>Fourth, set collection into ChartControl.</p>
+<pre>//Set main collection
+priceControl.SetMainCollection(collection);</pre>
+<p>All code of MainWindow.xaml.cs</p>
+<pre>
+...
+<strong>using ChartControls;
+using ChartControls.Drawing;</strong>
+
+public partial class MainWindow : Window
+{
+	//DataLoader class is use to simulate stock data
+	DataLoader loader;
+
+    public MainWindow()
+    {
+        InitializeComponent();
+
+        loader = new DataLoader("s.json", true);
+        <strong>CreateCurve();</strong>
+    }
+
+    <strong>public void CreateCurve()
+    {
+        string id = "000001";
+        //Load chart items
+        IList<ChartItem> chartItems = loader.GetChartItems(id);
+        //Create collection id
+        CollectionId collId = new CollectionId(id);
+
+        //Create pen
+        IPen pen = DrawingObjectFactory.CreatePen(Brushes.Black, 1);
+        //Create chart item collection
+        ChartItemCollection collection = new ChartItemCollection(collId, chartItems, pen, null);
+
+        //Set main collection
+        priceControl.SetMainCollection(collection);
+    }
+	</strong>
+}
+</pre>
+
+<p>5.The program looks like this.<p>
+<p><img src="image1.jpg" alt="Price curve"></p>
+<br><br>
+<h4>Display a candle sticks chart</h4>
+<p>1.Use Visual Studio 2012 to create a WPF project.</p>
+<p>2.Download and install ChartControls through Manager Nuget Package.</p>
+<p>3.Edit MainWindow.xaml<p>
+<p>First, you need to add namespace reference into xaml.</p>
+<pre>xmlns:local="clr-namespace:ChartControls;assembly=ChartControls"</pre>
+
+<p>Second, you need to add control tag.</p>
+<pre>&lt;local:ChartControl Name="priceControl" Margin="0,5,0,0"&gt;&lt;/local:ChartControl&gt;</pre>
+<pre>&lt;local:ChartControl Name="volumnControl" Grid.Row="1" YCursorFormat="N0" YScaleFormat="N0"&gt;&lt;/local:ChartControl&gt;</pre>
+<p>All code of MainWindow.xaml</p>
+<pre>
+&lt;Window x:Class="ChartView.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        <strong>xmlns:local="clr-namespace:ChartControls;assembly=ChartControls"</strong>
+        Title="How to use ChartControls" Height="350" Width="525"&gt;
+    &lt;Grid&gt;
+        &lt;Grid.RowDefinitions&gt;
+            &lt;RowDefinition Height="*"/&gt;
+            &lt;RowDefinition Height="80"/&gt;
+        &lt;/Grid.RowDefinitions&gt;
+
+        <strong>&lt;local:ChartControl Name="priceControl" Margin="0,5,0,0"&gt;&lt;/local:ChartControl&gt;</strong>
+		<strong>&lt;local:ChartControl Name="volumnControl" Grid.Row="1" YCursorFormat="N0" YScaleFormat="N0"&gt;&lt;/local:ChartControl&gt;</strong>
+    &lt;/Grid&gt;
+&lt;/Window&gt;
+</pre>
+
+<p>4.Edit MainWindow.xaml.cs<p>
+<p>First, add namespace reference.</p>
+<pre>using ChartControls;
+using ChartControls.Drawing;</pre>
+<p>Second, load stock data.</p>
+<pre>string id = "000001";
+//Load chart items
+StockVolumnList svList = loader.GetStockItems(id);</pre>
+<p>Third, create price collection, volumn collection, collection id.</p>
+<pre>//Create collection id
+CollectionId collId = new CollectionId(id);
+//Create pens
+IPen raisePen = DrawingObjectFactory.CreatePen(Brushes.Red, 1);
+IPen fallPen = DrawingObjectFactory.CreatePen(Brushes.Green, 1);
+//Create stock item collection
+StockItemCollection stockColl = new StockItemCollection(collId, svList.Prices, raisePen, fallPen, null);
+//Create volumn item collection
+VolumnItemCollection volumnColl = new VolumnItemCollection(collId, svList.Volumns, raisePen, fallPen);</pre>
+<p>Fourth, set collection into ChartControl.</p>
+<pre>//Set main collection
+priceControl.SetMainCollection(collection);
+//Set main collection
+volumnControl.SetMainCollection(volumnColl);
+//Connect two controls
+priceControl.AddConnection(volumnControl);</pre>
+<p>All code of MainWindow.xaml.cs</p>
+<pre>
+...
+<strong>using ChartControls;
+using ChartControls.Drawing;</strong>
+
+public partial class MainWindow : Window
+{
+	//DataLoader class is use to simulate stock data
+	DataLoader loader;
+
+    public MainWindow()
+    {
+        InitializeComponent();
+
+        loader = new DataLoader("s.json", true);
+        <strong>CreateCandle();</strong>
+    }
+
+    <strong>public void CreateCandle()
+    {
+        string id = "000001";
+        //Load chart items
+        StockVolumnList svList = loader.GetStockItems(id);
+        //Create collection id
+        CollectionId collId = new CollectionId(id);
+        //Create pens
+        IPen raisePen = DrawingObjectFactory.CreatePen(Brushes.Red, 1);
+        IPen fallPen = DrawingObjectFactory.CreatePen(Brushes.Green, 1);
+        //Create stock item collection
+        StockItemCollection stockColl = new StockItemCollection(collId, svList.Prices, raisePen, fallPen, null);
+        //Set main collection
+        priceControl.SetMainCollection(stockColl);
+        //Create volumn item collection
+        VolumnItemCollection volumnColl = new VolumnItemCollection(collId, svList.Volumns, raisePen, fallPen);
+        //Set main collection
+        volumnControl.SetMainCollection(volumnColl);
+        //Connect two controls
+        priceControl.AddConnection(volumnControl);
+    }
+	</strong>
+}
+</pre>
+
+<p>5.The program looks like this.<p>
+<p><img src="image2.jpg" alt="Price curve"></p>
+
+<h4>Display a time chart</h4>
+<p>1.Use Visual Studio 2012 to create a WPF project.</p>
+<p>2.Download and install ChartControls through Manager Nuget Package.</p>
+<p>3.Edit MainWindow.xaml<p>
+<p>First, you need to add namespace reference into xaml.</p>
+<pre>xmlns:local="clr-namespace:ChartControls;assembly=ChartControls"</pre>
+
+<p>Second, you need to add control tag.</p>
+<pre>&lt;local:ChartControl Name="priceControl" Margin="0,5,0,0" XScaleFormat="HH:ss"&gt;&lt;/local:ChartControl&gt;</pre>
+<pre>&lt;local:ChartControl Name="volumnControl" Grid.Row="1" YCursorFormat="N0" YScaleFormat="N0" XScaleFormat="HH:ss"&gt;&lt;/local:ChartControl&gt;</pre>
+<p>All code of MainWindow.xaml</p>
+<pre>
+&lt;Window x:Class="ChartView.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        <strong>xmlns:local="clr-namespace:ChartControls;assembly=ChartControls"</strong>
+        Title="How to use ChartControls" Height="350" Width="525"&gt;
+    &lt;Grid&gt;
+        &lt;Grid.RowDefinitions&gt;
+            &lt;RowDefinition Height="*"/&gt;
+            &lt;RowDefinition Height="80"/&gt;
+        &lt;/Grid.RowDefinitions&gt;
+
+        <strong>&lt;local:ChartControl Name="priceControl" Margin="0,5,0,0" XScaleFormat="HH:ss"&gt;&lt;/local:ChartControl&gt;</strong>
+		<strong>&lt;local:ChartControl Name="volumnControl" Grid.Row="1" YCursorFormat="N0" YScaleFormat="N0" XScaleFormat="HH:ss"&gt;&lt;/local:ChartControl&gt;</strong>
+    &lt;/Grid&gt;
+&lt;/Window&gt;
+</pre>
+
+<p>4.Edit MainWindow.xaml.cs<p>
+<p>First, add namespace reference.</p>
+<pre>using ChartControls;
+using ChartControls.Drawing;</pre>
+<p>Second, load stock data.</p>
+<pre>string id = "600100";
+StockVolumnList svList = timeLoader.GetStockItems(id);</pre>
+<p>Third, create collection and collection id.</p>
+<pre>//Create collection id
+CollectionId collId = new CollectionId(id);
+//Create pens
+IPen raisePen = DrawingObjectFactory.CreatePen(Brushes.Red, 1);
+IPen fallPen = DrawingObjectFactory.CreatePen(Brushes.Green, 1);
+//Create stock item collection
+SymmetricChartItemCollection stockColl = new SymmetricChartItemCollection(collId, svList.Prices, raisePen, null, SymmetricCommonSettings.CNSettings);
+//Create volumn item collection
+SymmetricVolumnItemCollection volumnColl = new SymmetricVolumnItemCollection(collId, svList.Volumns, raisePen, fallPen, SymmetricCommonSettings.CNSettings);</pre>
+<p>Fourth, set collection into ChartControl.</p>
+<pre>//Set main collection
+priceControl.SetMainCollection(collection);
+//Set main collection
+volumnControl.SetMainCollection(volumnColl);
+//Connect two controls
+priceControl.AddConnection(volumnControl);</pre>
+<p>All code of MainWindow.xaml.cs</p>
+<pre>
+...
+<strong>using ChartControls;
+using ChartControls.Drawing;</strong>
+
+public partial class MainWindow : Window
+{
+	//DataLoader class is use to simulate stock data
+    DataLoader timeLoader;
+
+    public MainWindow()
+    {
+        InitializeComponent();
+
+        timeLoader = new DataLoader("st.json", true);
+        <strong>CreateTime();</strong>
+    }
+
+    <strong>public void CreateTime()
+    {
+        string id = "600100";
+
+        StockVolumnList svList = timeLoader.GetStockItems(id);
+
+        //Create collection id
+        CollectionId collId = new CollectionId(id);
+        //Create pens
+        IPen raisePen = DrawingObjectFactory.CreatePen(Brushes.Red, 1);
+        IPen fallPen = DrawingObjectFactory.CreatePen(Brushes.Green, 1);
+        //Create stock item collection
+        SymmetricChartItemCollection stockColl = new SymmetricChartItemCollection(collId, svList.Prices, raisePen, null, SymmetricCommonSettings.CNSettings);
+        //Set main collection
+        priceControl.SetMainCollection(stockColl);
+        //Create volumn item collection
+        SymmetricVolumnItemCollection volumnColl = new SymmetricVolumnItemCollection(collId, svList.Volumns, raisePen, fallPen, SymmetricCommonSettings.CNSettings);
+        //Set main collection
+        volumnControl.SetMainCollection(volumnColl);
+        //Connect two controls
+        priceControl.AddConnection(volumnControl);
+    }
+	</strong>
+}
+</pre>
+
+<p>5.The program looks like this.<p>
+<p><img src="image3.jpg" alt="Price curve"></p>
+<br><br>
+
+<h2>Points of Interest</h2>
+<p>Beside of three usages above, you can also display two or more stocks in one chart, change price value dynamically, extent available stock collection to create custom chart.</p>
+<p>You can change appearance of ChartControl by it's attributes, such as background color, border color and width, font and so on.</p>
+<p>
+You can get more complicated sample code from <a href="https://github.com/Waynext/ChartControls/tree/master/Src/Tests">Here</a></p>
+
+<h2>History</h2>
+
+<p></p>
+
+<!-------------------------------    That's it!   --------------------------->
+</body>
+
+</html>
+

@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{674C586F-B285-444A-A6AB-A9CBCC5D0B8F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ChartControls</RootNamespace>
+    <AssemblyName>ChartControls</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\ChartControls.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Redistribute\lib\net45\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\Redistribute\lib\net45\ChartControls_cn.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\ChartControls\ChartCollection.cs">
+      <Link>ChartCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ChartControls\ChartControl.cs">
+      <Link>ChartControl.cs</Link>
+    </Compile>
+    <Compile Include="..\ChartControls\ChartControl4Desktop.cs">
+      <Link>ChartControl4Desktop.cs</Link>
+    </Compile>
+    <Compile Include="..\ChartControls\ChartControlDependencyProperties.cs">
+      <Link>ChartControlDependencyProperties.cs</Link>
+    </Compile>
+    <Compile Include="..\ChartControls\ControlConstant.cs">
+      <Link>ControlConstant.cs</Link>
+    </Compile>
+    <Compile Include="..\ChartControls\Drawing\DrawingObjectFactory.cs">
+      <Link>Drawing\DrawingObjectFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\ChartControls\Drawing\DrawingPen.cs">
+      <Link>Drawing\DrawingPen.cs</Link>
+    </Compile>
+    <Compile Include="..\ChartControls\Drawing\DrawingTextFormat.cs">
+      <Link>Drawing\DrawingTextFormat.cs</Link>
+    </Compile>
+    <Compile Include="..\ChartControls\Drawing\IDrawingContext.cs">
+      <Link>Drawing\IDrawingContext.cs</Link>
+    </Compile>
+    <Compile Include="..\ChartControls\Drawing\VisualDrawingContext.cs">
+      <Link>Drawing\VisualDrawingContext.cs</Link>
+    </Compile>
+    <Compile Include="..\ChartControls\ExitRight.cs">
+      <Link>ExitRight.cs</Link>
+    </Compile>
+    <Compile Include="..\ChartControls\ICustomGraphics.cs">
+      <Link>ICustomGraphics.cs</Link>
+    </Compile>
+    <Compile Include="..\ChartControls\IExtraDataGraphics.cs">
+      <Link>IExtraDataGraphics.cs</Link>
+    </Compile>
+    <Compile Include="..\ChartControls\IInteractive.cs">
+      <Link>IInteractive.cs</Link>
+    </Compile>
+    <Compile Include="..\ChartControls\LineGraphics.cs">
+      <Link>LineGraphics.cs</Link>
+    </Compile>
+    <Compile Include="..\ChartControls\MeasureGraphics.cs">
+      <Link>MeasureGraphics.cs</Link>
+    </Compile>
+    <Compile Include="..\ChartControls\MultipleChartItemCollection.cs">
+      <Link>MultipleChartItemCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ChartControls\NewsHistoryGraphic.cs">
+      <Link>NewsHistoryGraphic.cs</Link>
+    </Compile>
+    <Compile Include="..\ChartControls\ParallelLineGraphic.cs">
+      <Link>ParallelLineGraphic.cs</Link>
+    </Compile>
+    <Compile Include="..\ChartControls\PointSnapper.cs">
+      <Link>PointSnapper.cs</Link>
+    </Compile>
+    <Compile Include="..\ChartControls\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\ChartControls\QueryData.cs">
+      <Link>QueryData.cs</Link>
+    </Compile>
+    <Compile Include="..\ChartControls\SingleStockItemCollection.cs">
+      <Link>SingleStockItemCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ChartControls\StockCollection.cs">
+      <Link>StockCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ChartControls\SymmetricChartCollection.cs">
+      <Link>SymmetricChartCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ChartControls\VolumnCollection.cs">
+      <Link>VolumnCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ChartControls\XRHistoryGraphics.cs">
+      <Link>XRHistoryGraphics.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

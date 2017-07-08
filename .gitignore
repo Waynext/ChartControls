@@ -173,3 +173,7 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+
+packages/
+.vs/
+Redistribute/
